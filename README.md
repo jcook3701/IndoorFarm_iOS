@@ -9,6 +9,9 @@
 <------Setup Pods In Project Dir----->
 
 4. Then in terminal cd to "your XCode project root directory" (where your .xcodeproj file resides) and type: pod init
-6. Then install pods inside of Podfile: pod install
+5. Then install pods inside of Podfile: pod install
 
 <-----Begin Editing and Running Code----->
+
+6. Open file that ends in '.xcworkspace': open *.xcworkspace
+7. Begin Editing iOS swift Xcode project
