@@ -7,5 +7,6 @@
 3. pod setup --verbose
 
 //------Setup Pods In Project Dir-----//
+
 4. Then in terminal cd to "your XCode project root directory" (where your .xcodeproj file resides) and type: pod init
 6. Then install pods inside of Podfile: pod install
