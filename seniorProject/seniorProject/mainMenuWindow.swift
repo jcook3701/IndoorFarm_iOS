@@ -28,6 +28,7 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     var signInButton0: GIDSignInButton!
     var signInButton1: FBSDKLoginButton!
     var signInButton2: UIButton!
+
     
     override init() {
         super.init();
@@ -78,7 +79,6 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //----------Screen Dimensions----------//
         self.screenSize = UIScreen.main.bounds;     //Screen Size
         self.screenWidth = screenSize.width;        //Screen Width
@@ -90,7 +90,6 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         
         //var count = 0;
         //----------Firebase----------//
-        
         //----------Google Login----------//
         GIDSignIn.sharedInstance().uiDelegate = self
         self.signInButton0 = GIDSignInButton();
@@ -137,7 +136,10 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
             let controller = emailLoginWindow()
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            present(controller, animated: true, completion: nil);
+            controller.title = "Email Login"
+            navigationController?.pushViewController(controller, animated: true)
+
+            //present(controller, animated: true, completion: nil);
         }
     }
 

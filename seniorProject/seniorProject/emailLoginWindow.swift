@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class emailLoginWindow: gui_init{
+
     
     //----------GUI Variables----------//
     var usernameView: UITextField!;
@@ -19,6 +20,7 @@ class emailLoginWindow: gui_init{
     var forgotPasswordButton: UIButton!;
 
     //----------Variables----------//
+    var navBar: UINavigationBar!;
 
     //----------Keyboard Hider----------//
     
@@ -39,10 +41,16 @@ class emailLoginWindow: gui_init{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+  
+    /*
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }*/
+
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+
         //----------Screen Dimensions----------//
         self.screenSize = UIScreen.main.bounds;     //Screen Size
         self.screenWidth = screenSize.width;        //Screen Width
@@ -64,23 +72,16 @@ class emailLoginWindow: gui_init{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
+    
+    
         //----------Navigation Bar----------//
+    
+        //---------- status bar background color----------//
+        //let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
+        //let statusBarColor = self.navBar.barTintColor
+        //statusBarView.backgroundColor = UIColor.clear
+        //view.addSubview(statusBarView)
         
-
-        /*
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: self.screenWidth, height: 44))
-        let navItem = UINavigationItem(title: "SomeTitle");
-        let backItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: nil, action: "selector");
-        navItem.leftBarButtonItem = backItem;
-        navBar.setItems([navItem], animated: false);
-        navBar.backIndicatorImage = UIImage(named: "backButton")
-        navBar.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "backButton")
-        navBar.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        self.view.addSubview(navBar);
-        */
- 
- 
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
         self.usernameView.placeholder = " Username: "
@@ -142,20 +143,36 @@ class emailLoginWindow: gui_init{
             let controller = controlWindow_0();
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            present(controller, animated: true, completion: nil);
+            controller.title = "Control"
+            navigationController?.pushViewController(controller, animated: true)
+            //present(controller, animated: true, completion: nil);
         }
         if(tag == 1)
         {
             
+
         }
         if(tag == 2)
         {
             let controller = emailSetupWindow();
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            present(controller, animated: true, completion: nil);
+            controller.title = "Email Setup"
+
+            navigationController?.pushViewController(controller, animated: true)
+            //present(controller, animated: true, completion: nil);
+        }
+        if(tag == 4)
+        {
+            
         }
     }
+    
+    //@IBAction func backAction(_ sender: UIBarButtonItem) {
+    //    print("backAction")
+    //    dismiss(animated: true, completion: nil);
+        //let _ = self.navigationController?.popViewController(animated: true)
+    //}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();

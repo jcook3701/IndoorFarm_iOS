@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
     var ref: DatabaseReference!
-
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
@@ -78,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //--------Firebase--------//
         // Use Firebase library to configure APIs'
         
+
         FirebaseApp.configure()
         //--------Google-login--------//
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -88,13 +88,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //myLoginWindow
         
         //--------Screen Launch--------//
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        let nav1 = UINavigationController()
+        let mainView = mainMenuWindow() //ViewController = Name of your controller
+        nav1.viewControllers = [mainView]
+        self.window!.rootViewController = nav1
+        self.window?.makeKeyAndVisible()
         
+        /*
         let login = mainMenuWindow();
         self.window = UIWindow(frame: UIScreen.main.bounds);
         self.window!.rootViewController = login;
         self.window?.makeKeyAndVisible();
         self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        
+        */
         // Override point for customization after application launch.
         return true
     }

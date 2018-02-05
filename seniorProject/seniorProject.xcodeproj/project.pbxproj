@@ -12,6 +12,7 @@
 		893430302022FB32009347DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8934302E2022FB32009347DB /* Main.storyboard */; };
 		893430322022FB32009347DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 893430312022FB32009347DB /* Assets.xcassets */; };
 		893430352022FB32009347DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 893430332022FB32009347DB /* LaunchScreen.storyboard */; };
+		896736A22027C11E00EA20CE /* UINavigationBar-Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896736A12027C11E00EA20CE /* UINavigationBar-Height.swift */; };
 		8994928D2023069A00254715 /* mainMenuWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8994928C2023069A00254715 /* mainMenuWindow.swift */; };
 		8994928F202307B900254715 /* gui_init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8994928E202307B900254715 /* gui_init.swift */; };
 		899492922023252F00254715 /* controlWindow_0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899492912023252F00254715 /* controlWindow_0.swift */; };
@@ -33,6 +34,7 @@
 		893430312022FB32009347DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		893430342022FB32009347DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		893430362022FB32009347DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		896736A12027C11E00EA20CE /* UINavigationBar-Height.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar-Height.swift"; sourceTree = "<group>"; };
 		8994928C2023069A00254715 /* mainMenuWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainMenuWindow.swift; sourceTree = "<group>"; };
 		8994928E202307B900254715 /* gui_init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gui_init.swift; sourceTree = "<group>"; };
 		899492912023252F00254715 /* controlWindow_0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = controlWindow_0.swift; sourceTree = "<group>"; };
@@ -84,12 +86,13 @@
 			isa = PBXGroup;
 			children = (
 				8994929920252C1800254715 /* DataService.swift */,
+				896736A12027C11E00EA20CE /* UINavigationBar-Height.swift */,
+				8934302A2022FB32009347DB /* AppDelegate.swift */,
 				8994928E202307B900254715 /* gui_init.swift */,
 				8994928C2023069A00254715 /* mainMenuWindow.swift */,
 				89B167042026E999009A5428 /* emailLoginWindow.swift */,
 				89B167062026E9B7009A5428 /* emailSetupWindow.swift */,
 				899492912023252F00254715 /* controlWindow_0.swift */,
-				8934302A2022FB32009347DB /* AppDelegate.swift */,
 				8934302C2022FB32009347DB /* ViewController.swift */,
 				8934302E2022FB32009347DB /* Main.storyboard */,
 				893430312022FB32009347DB /* Assets.xcassets */,
@@ -297,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89B167052026E999009A5428 /* emailLoginWindow.swift in Sources */,
+				896736A22027C11E00EA20CE /* UINavigationBar-Height.swift in Sources */,
 				8994928D2023069A00254715 /* mainMenuWindow.swift in Sources */,
 				89B167072026E9B7009A5428 /* emailSetupWindow.swift in Sources */,
 				8994928F202307B900254715 /* gui_init.swift in Sources */,
