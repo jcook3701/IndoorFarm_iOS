@@ -1,8 +1,8 @@
 //
-//  controlWindow_0.swift
+//  controlWindow2.swift
 //  seniorProject
 //
-//  Created by Jared_Cook on 2/1/18.
+//  Created by Jared_Cook on 2/6/18.
 //  Copyright © 2018 Jared_Cook. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class controlWindow_0: gui_init{
+class controlWindow_2: gui_init{
     
     //----------GUI Variables----------//
     var usernameView: UITextField!;
@@ -49,7 +49,7 @@ class controlWindow_0: gui_init{
     override func viewDidLoad() {
         super.viewDidLoad();
         definesPresentationContext = true
-
+        
         
         //----------Screen Dimensions----------//
         self.screenSize = UIScreen.main.bounds;     //Screen Size
@@ -73,7 +73,9 @@ class controlWindow_0: gui_init{
         conditionRef = Database.database().reference();
         
         //----------Settings----------//
-        self.view.backgroundColor = UIColor.blue
+        self.view.backgroundColor = UIColor.green
+
+        
         
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
@@ -108,7 +110,7 @@ class controlWindow_0: gui_init{
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;
         self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         view.addSubview(self.logoutButton);
-
+        
         
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left
@@ -139,7 +141,7 @@ class controlWindow_0: gui_init{
         }
         if(tag == 2){
             //self.ref.child("users").child(user.uid).setValue(["username": username])
-
+            
         }
     }
     

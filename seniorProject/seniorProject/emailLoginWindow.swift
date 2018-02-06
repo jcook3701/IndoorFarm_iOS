@@ -158,12 +158,29 @@ class emailLoginWindow: gui_init{
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
                     //----------Mail Login Screen Init----------//
-                    let controller = controlWindow_0();
-                    controller.view.backgroundColor = UIColor.white;
-                    controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+                    //let controller = controlWindow_0();
+                    //controller.view.backgroundColor = UIColor.white;
+                    //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
                     //controller.title = "Control"
-                    self.navigationController?.pushViewController(controller, animated: true)
+                    //self.navigationController?.pushViewController(controller, animated: true)
                     //self.present(controller, animated: true, completion: nil);
+                    
+                    //----------Setup TabBarController----------//
+                    let tabBarController = UITabBarController()
+                    let controlWindow0 = controlWindow_0()
+                    controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+                    let controlWindow1 = controlWindow_1()
+                    controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+                    let controlWindow2 = controlWindow_2()
+                    controlWindow2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
+                    let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ]
+                    tabBarController.viewControllers = viewControllerList
+                    tabBarController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+                    tabBarController.view.backgroundColor = UIColor.white;
+                    tabBarController.title = "Indoor Farm"
+                    tabBarController.navigationItem.hidesBackButton = true;
+                    self.navigationController?.pushViewController(tabBarController, animated: true)
+                    
                 }
                 else{
                     print("error")

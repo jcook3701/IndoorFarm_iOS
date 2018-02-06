@@ -24,6 +24,7 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
+    var nav1: UINavigationController?
     //var ref: DatabaseReference!
     
     @available(iOS 9.0, *)
@@ -56,13 +57,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // User is signed in
             print("User is signed in")
             //----------Mail Login Screen Init----------//
-            let controller = controlWindow_0();
-            controller.view.backgroundColor = UIColor.white;
-            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+            //let controller = controlWindow_0();
+            //controller.view.backgroundColor = UIColor.white;
+            //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
             //controller.title = "Control"
-            //self.navigationController?.pushViewController(controller, animated: true)
-            //self.present(controller, animated: true, completion: nil);
-            self.window?.rootViewController = controller;
+            //----------Setup TabBarController----------//
+            let tabBarController = UITabBarController()
+            let controlWindow0 = controlWindow_0()
+            controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+            let controlWindow1 = controlWindow_1()
+            controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+            let controlWindow2 = controlWindow_2()
+            controlWindow2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
+            let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ]
+            tabBarController.viewControllers = viewControllerList
+            tabBarController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+            tabBarController.view.backgroundColor = UIColor.white;
+            tabBarController.title = "Indoor Farm"
+            tabBarController.navigationItem.hidesBackButton = true;
+            self.nav1?.pushViewController(tabBarController, animated: true)
+            
+            //self.window!.rootViewController = self.nav1
+            //self.window!.makeKeyAndVisible()
         }
     }
     
@@ -99,9 +115,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //--------Screen Launch--------//
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        let nav1 = UINavigationController()
+        nav1 = UINavigationController()
         let mainView = mainMenuWindow() //ViewController = Name of your controller
-        nav1.viewControllers = [mainView]
+        //nav1?.viewControllers = [mainView]
+        nav1?.pushViewController(mainView, animated: true)
         self.window!.rootViewController = nav1
         self.window?.makeKeyAndVisible()
         
