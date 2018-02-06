@@ -166,6 +166,8 @@ class emailLoginWindow: gui_init{
                     //self.present(controller, animated: true, completion: nil);
                     
                     //----------Setup TabBarController----------//
+                    Util.setupMainWindow(nav: self.navigationController!)
+                    /*
                     let tabBarController = UITabBarController()
                     let controlWindow0 = controlWindow_0()
                     controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
@@ -180,6 +182,8 @@ class emailLoginWindow: gui_init{
                     tabBarController.title = "Indoor Farm"
                     tabBarController.navigationItem.hidesBackButton = true;
                     self.navigationController?.pushViewController(tabBarController, animated: true)
+                    */
+                    
                     
                 }
                 else{

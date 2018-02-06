@@ -138,6 +138,8 @@ override func viewDidLoad() {
         //controller.title = "Control"
         //navigationController?.pushViewController(controller, animated: true)
         //----------Setup TabBarController----------//
+        Util.setupMainWindow(nav: self.navigationController!)
+        /*
         let tabBarController = UITabBarController()
         let controlWindow0 = controlWindow_0()
         controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
@@ -152,6 +154,7 @@ override func viewDidLoad() {
         tabBarController.title = "Indoor Farm"
         tabBarController.navigationItem.hidesBackButton = true;
         self.navigationController?.pushViewController(tabBarController, animated: true)
+ */
     }
 }
 
