@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+//-----Firebase Imports -----//
+import Firebase
+import FirebaseAuthUI
+
 class emailSetupWindow: gui_init{
 //----------GUI Variables----------//
 var usernameView: UITextField!;
@@ -62,7 +66,7 @@ override func viewDidLoad() {
     
     //----------Username----------//
     self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-    self.usernameView.placeholder = " New Username: "
+    self.usernameView.placeholder = " New Email: "
     self.usernameView.layer.borderWidth = 1
     self.view.addSubview(self.usernameView);
     
@@ -102,12 +106,38 @@ override func viewDidLoad() {
     let tag = sender.tag;
     sender.showsTouchWhenHighlighted = true;
     if(tag == 0){//Login
-        print("Login");
         //----------Mail Login Screen Init----------//
+
+        guard let email = usernameView.text, !email.isEmpty else {
+            print("email is empty");
+            return
+        }
+        
+        guard let password0 = passwordView0.text, !password0.isEmpty else {
+            print("password0 is empty");
+            return
+        }
+        
+        guard let password1 = passwordView1.text, !password1.isEmpty else {
+            print("password1 is empty");
+            return
+        }
+        
+        if(password0 == password1){
+            Auth.auth().createUser(withEmail: email, password: password0) { (user, error) in
+                if error == nil{
+                    print("Success making account: \(email)" ); 
+                }
+            }
+        }
+        print("Login");
+
+        
         let controller = controlWindow_0();
         controller.view.backgroundColor = UIColor.white;
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-        present(controller, animated: true, completion: nil);
+        controller.title = "Control"
+        navigationController?.pushViewController(controller, animated: true)        
     }
 }
 

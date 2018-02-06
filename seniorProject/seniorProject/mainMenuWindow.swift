@@ -96,6 +96,7 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         //self.signInButton0.frame.size = CGSize(width: self.screenWidth*0.6, height: screenHeight/22);
         self.signInButton0.style = GIDSignInButtonStyle.wide    // => 312x48
         self.signInButton0.center = CGPoint(x: screenWidth/2, y: screenHeight*0.9);
+        self.signInButton0.tag = 1;
         view.addSubview(signInButton0)
         let testFrame = self.signInButton0.frame;
 
@@ -140,6 +141,9 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
             navigationController?.pushViewController(controller, animated: true)
 
             //present(controller, animated: true, completion: nil);
+        }
+        if(tag == 1){
+            
         }
     }
 

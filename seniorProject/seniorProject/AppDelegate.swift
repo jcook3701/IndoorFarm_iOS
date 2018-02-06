@@ -6,23 +6,25 @@
 //  Copyright © 2018 Jared_Cook. All rights reserved.
 //
 
+//-----Built-in Imports -----//
 import UIKit
+//-----Facebook Imports -----//
 import Firebase
 import FirebaseDatabase
-
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 import FirebaseFacebookAuthUI
+//-----Google Imports -----//
+import GoogleSignIn
 
 //import FacebookLogin
 //import FacebookCore
-import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
-    var ref: DatabaseReference!
+    //var ref: DatabaseReference!
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
@@ -53,7 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             // User is signed in
             print("User is signed in")
-            // ...
+            //----------Mail Login Screen Init----------//
+            let controller = controlWindow_0();
+            controller.view.backgroundColor = UIColor.white;
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+            //controller.title = "Control"
+            //self.navigationController?.pushViewController(controller, animated: true)
+            //self.present(controller, animated: true, completion: nil);
+            self.window?.rootViewController = controller;
         }
     }
     
@@ -83,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
  
-        ref = Database.database().reference();
+        //ref = Database.database().reference();
         //--------Firebase--------//
         //myLoginWindow
         

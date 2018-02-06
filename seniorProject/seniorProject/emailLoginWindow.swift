@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+//-----Firebase Imports -----//
+import Firebase
+import FirebaseAuthUI
+
 class emailLoginWindow: gui_init{
 
     
@@ -138,14 +142,36 @@ class emailLoginWindow: gui_init{
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
         if(tag == 0){//Login
-            print("Login");
-            //----------Mail Login Screen Init----------//
-            let controller = controlWindow_0();
-            controller.view.backgroundColor = UIColor.white;
-            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            controller.title = "Control"
-            navigationController?.pushViewController(controller, animated: true)
-            //present(controller, animated: true, completion: nil);
+            
+            guard let email = usernameView.text, !email.isEmpty else {
+                print("email is empty");
+                return
+            }
+            
+            guard let password = passwordView.text, !password.isEmpty else {
+                print("password0 is empty");
+                return
+            }
+            
+            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                if error == nil{
+                    //Print into the console if successfully logged in
+                    print("You have successfully logged in")
+                    //----------Mail Login Screen Init----------//
+                    let controller = controlWindow_0();
+                    controller.view.backgroundColor = UIColor.white;
+                    controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
+                    //controller.title = "Control"
+                    self.navigationController?.pushViewController(controller, animated: true)
+                    //self.present(controller, animated: true, completion: nil);
+                }
+                else{
+                    print("error")
+                }
+                
+            }
+            
+            
         }
         if(tag == 1)
         {
@@ -158,7 +184,6 @@ class emailLoginWindow: gui_init{
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
             controller.title = "Email Setup"
-
             navigationController?.pushViewController(controller, animated: true)
             //present(controller, animated: true, completion: nil);
         }

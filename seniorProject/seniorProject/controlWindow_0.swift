@@ -9,16 +9,21 @@
 import Foundation
 import UIKit
 
+//-----Facebook Imports -----//
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 class controlWindow_0: gui_init{
     
     //----------GUI Variables----------//
     var usernameView: UITextField!;
     var passwordView: UITextField!;
-    var loginButton: UIButton!;
-    var registerButton: UIButton!;
-    var forgotPasswordButton: UIButton!;
+    var logoutButton: UIButton!;
+    var addSettingsDataButton: UIButton!;
     
-    //----------GUI Variables----------//
+    //----------Firebase Variables----------//
+    var conditionRef: DatabaseReference!
     
     
     //----------Keyboard Hider----------//
@@ -43,6 +48,8 @@ class controlWindow_0: gui_init{
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        definesPresentationContext = true
+
         
         //----------Screen Dimensions----------//
         self.screenSize = UIScreen.main.bounds;     //Screen Size
@@ -56,51 +63,48 @@ class controlWindow_0: gui_init{
         //----------Init GUI Variables----------//
         self.usernameView = UITextField();
         self.passwordView = UITextField();
-        self.loginButton = UIButton();
-        self.registerButton = UIButton();
-        self.forgotPasswordButton = UIButton();
+        self.logoutButton = UIButton();
+        self.addSettingsDataButton = UIButton();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        //----------Init Firebase Variables----------//
+        conditionRef = Database.database().reference();
+        
+        //----------Hide ----------//
+        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
+        
+
         
         //----------Register----------//
         
         
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.usernameView.placeholder = " Username: "
+        self.usernameView.placeholder = " name: "
         self.usernameView.layer.borderWidth = 1
         self.view.addSubview(self.usernameView);
         
         //----------Password----------//
         self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView.placeholder = " Password: "
+        self.passwordView.placeholder = " trait: "
         self.passwordView.layer.borderWidth = 1
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.passwordView);
         
         
-        //---------Login Button----------//
-        self.loginButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
-        self.loginButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.loginButton.tag = 0;
-        self.loginButton.setTitle(String(" Login"), for: .normal);
-        self.loginButton.titleLabel?.font = self.loginButton.titleLabel?.font.withSize(screenHeight/40)
-        self.loginButton.layer.borderColor = UIColor.black.cgColor;
-        self.loginButton.backgroundColor = UIColor(displayP3Red: 0.9, green: 0.2, blue: 0.2, alpha: 1.0);
+        //----------Add Settings Data Button----------//
+        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.addSettingsDataButton.tag = 0;
+        self.addSettingsDataButton.setTitle(String(" test"), for: .normal);
+        self.addSettingsDataButton.titleLabel?.font = self.addSettingsDataButton.titleLabel?.font.withSize(screenHeight/40)
+        self.addSettingsDataButton.layer.borderColor = UIColor.black.cgColor;
+        self.addSettingsDataButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        view.addSubview(self.loginButton);
-        
-        //----------Forgot Password----------//
-        self.forgotPasswordButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
-        self.forgotPasswordButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.forgotPasswordButton.tag = 0;
-        self.forgotPasswordButton.setTitle(String(" test"), for: .normal);
-        self.forgotPasswordButton.titleLabel?.font = self.loginButton.titleLabel?.font.withSize(screenHeight/40)
-        self.forgotPasswordButton.layer.borderColor = UIColor.black.cgColor;
-        self.forgotPasswordButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        view.addSubview(self.forgotPasswordButton);
+        view.addSubview(self.addSettingsDataButton);
         
         
         //----------Possibly Helpful CMDS----------//
@@ -112,8 +116,17 @@ class controlWindow_0: gui_init{
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
         if(tag == 0){//Login
-            print("Login");
-            //----------Mail Login Screen Init----------//
+            print("Test Button Pushed");
+            var user = Auth.auth().currentUser
+            conditionRef.child("users").child((user?.uid)!).setValue("Hello Firebase")
+            //.childByAutoId()
+        }
+        if(tag == 1){
+            
+        }
+        if(tag == 2){
+            //self.ref.child("users").child(user.uid).setValue(["username": username])
+
         }
     }
     
