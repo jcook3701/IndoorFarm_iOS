@@ -15,3 +15,15 @@
 
 6. Open file that ends in '.xcworkspace': open *.xcworkspace
 7. Begin Editing iOS swift Xcode project
+
+
+#How to git
+step 1)  At direcotry head. 
+If added file...
+git add . 
+
+step 2)
+git commit . -m "some messsage" 
+
+setp 3)
+git push 
