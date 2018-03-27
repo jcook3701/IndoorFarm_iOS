@@ -17,7 +17,7 @@
 7. Begin Editing iOS swift Xcode project
 
 
-#How to git
+# How to git
 step 1)  At direcotry head. 
 If added file...
 git add . 
