@@ -8,6 +8,10 @@
 
 import Foundation
 import UIKit
+import DropDown
+
+
+
 
 //-----Facebook Imports -----//
 import Firebase
@@ -108,6 +112,17 @@ class controlWindow_0: gui_init{
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;
         self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         view.addSubview(self.logoutButton);
+        
+        //--------DropDownMenu-------//
+        let dropDown = DropDown();
+        
+        dropDown.anchorView = view;
+        dropDown.dataSource = ["Beansprout", "Poppy Seeds", "Theobroma cacao"];
+        
+        
+        dropDown.show();
+        dropDown.direction = .any
+        //dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
 
         
         //----------Possibly Helpful CMDS----------//

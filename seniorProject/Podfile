@@ -20,4 +20,9 @@ target 'seniorProject' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  
+  #-----DropDown-----#
+  pod 'DropDown'
+  
+  
 end
