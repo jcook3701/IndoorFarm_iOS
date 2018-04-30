@@ -24,7 +24,9 @@ class controlWindow_0: gui_init{
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
+    var pumpButton: UIButton!;
     var addSettingsDataButton: UIButton!;
+    var lightbutton: UIButton!;
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -94,7 +96,7 @@ class controlWindow_0: gui_init{
         
         
         //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
         self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.addSettingsDataButton.tag = 0;
         self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
@@ -103,8 +105,29 @@ class controlWindow_0: gui_init{
         self.addSettingsDataButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
         view.addSubview(self.addSettingsDataButton);
+
+        //---------PumpButton-------//
         
-        //----------Logot Button----------//
+        self.pumpButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight));
+        self.pumpButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.pumpButton.tag = 1;
+        self.pumpButton.setTitle(String("Pump Water"), for: .normal);
+        self.pumpButton.layer.borderColor = UIColor.black.cgColor;
+        self.pumpButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.pumpButton);
+        
+        //---------LightButton-------//
+        
+        self.lightbutton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight));
+        self.lightbutton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.lightbutton.tag = 1;
+        self.lightbutton.setTitle(String("Turn on Lights"), for: .normal);
+        self.lightbutton.layer.borderColor = UIColor.black.cgColor;
+        self.lightbutton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.lightbutton);
+        
+        
+        //----------Logout Button----------//
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.logoutButton.tag = 1;
@@ -112,6 +135,8 @@ class controlWindow_0: gui_init{
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;
         self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         view.addSubview(self.logoutButton);
+        
+        
         
         //--------DropDownMenu-------//
         let dropDown = DropDown();

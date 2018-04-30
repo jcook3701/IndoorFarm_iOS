@@ -20,7 +20,9 @@ class controlWindow_1: gui_init{
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
+    var airPurifier: UIButton!;
     var addSettingsDataButton: UIButton!;
+    var drainButton: UIButton!;
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -92,7 +94,7 @@ class controlWindow_1: gui_init{
         
         
         //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
         self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.addSettingsDataButton.tag = 0;
         self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
@@ -102,7 +104,27 @@ class controlWindow_1: gui_init{
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
         view.addSubview(self.addSettingsDataButton);
         
-        //----------Logot Button----------//
+        //---------AirPurifier-------//
+        
+        self.airPurifier = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight));
+        self.airPurifier.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.airPurifier.tag = 1;
+        self.airPurifier.setTitle(String("Turn on Air Purifier"), for: .normal);
+        self.airPurifier.layer.borderColor = UIColor.black.cgColor;
+        self.airPurifier.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.airPurifier);
+        
+        //---------DrainButton-------//
+        
+        self.drainButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight));
+        self.drainButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.drainButton.tag = 1;
+        self.drainButton.setTitle(String("Drain Water"), for: .normal);
+        self.drainButton.layer.borderColor = UIColor.black.cgColor;
+        self.drainButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.drainButton);
+        
+        //----------LogoutButton----------//
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.logoutButton.tag = 1;

@@ -20,6 +20,8 @@ class controlWindow_2: gui_init{
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
+    var raiseLights: UIButton!;
+    var lowerLights: UIButton!;
     var addSettingsDataButton: UIButton!;
     
     //----------Firebase Variables----------//
@@ -92,7 +94,7 @@ class controlWindow_2: gui_init{
         
         
         //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
         self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.addSettingsDataButton.tag = 0;
         self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
@@ -102,7 +104,25 @@ class controlWindow_2: gui_init{
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
         view.addSubview(self.addSettingsDataButton);
         
-        //----------Logot Button----------//
+        //----------RaiseLights----------//
+        self.raiseLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.raiseLights.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.raiseLights.tag = 1;
+        self.raiseLights.setTitle(String("Raise Lights Platform"), for: .normal);
+        self.raiseLights.layer.borderColor = UIColor.black.cgColor;
+        self.raiseLights.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.raiseLights);
+        
+        //----------LowerLights----------//
+        self.lowerLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight))
+        self.lowerLights.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.lowerLights.tag = 1;
+        self.lowerLights.setTitle(String("Lower Lights Platform"), for: .normal);
+        self.lowerLights.layer.borderColor = UIColor.black.cgColor;
+        self.lowerLights.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        view.addSubview(self.lowerLights);
+        
+        //----------LogoutButton----------//
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.logoutButton.tag = 1;
