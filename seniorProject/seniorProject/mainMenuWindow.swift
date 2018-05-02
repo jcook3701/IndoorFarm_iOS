@@ -122,9 +122,7 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         self.signInButton2.center = CGPoint(x: screenWidth/2, y: screenHeight*0.70);
         view.addSubview(self.signInButton2);
         
-        //------Background Image-----//
         
-//        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "seed_icon.png"));
     }
     
     override func didReceiveMemoryWarning() {
