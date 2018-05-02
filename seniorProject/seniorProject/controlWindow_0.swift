@@ -31,6 +31,8 @@ class controlWindow_0: gui_init{
     var temp_val: UITextView!;
     var water_val: UITextView!;
     
+    var readTimer : Timer!;
+
     
     
     //----------Firebase Variables----------//
@@ -81,6 +83,9 @@ class controlWindow_0: gui_init{
         self.water_val = UITextView();
         self.temp_val = UITextView();
         
+        self.readTimer = Timer();
+
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -88,7 +93,29 @@ class controlWindow_0: gui_init{
         conditionRef = Database.database().reference();
         
         //----------Settings----------//
-      //  self.view.backgroundColor = UIColor.blue
+        //  self.view.backgroundColor = UIColor.blue
+        
+        //----------Read Timer----------//
+        conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                self.temp_val.text =  String(myValue);
+            }
+        });
+        
+        conditionRef.child("Water_Level").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                if(myValue == 1){
+                    self.water_val.text =  "High";
+                }
+                else{
+                    self.water_val.text =  "Low";
+                }
+            }
+        });
+        readTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(readTimerCode), userInfo: nil, repeats: true);
+
         
         //----------Title----------//
         self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
@@ -105,8 +132,10 @@ class controlWindow_0: gui_init{
         self.temperature.layer.borderWidth = 0
         self.view.addSubview(self.temperature);
 
-        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.3,height:self.BlockHeight));
-        self.temp_val.layer.borderWidth = 1
+        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.temp_val.layer.borderWidth = 0
+        self.temp_val.isUserInteractionEnabled = false;
+        self.temp_val.textAlignment = .center;
         self.view.addSubview(self.temp_val);
 
         
@@ -118,14 +147,41 @@ class controlWindow_0: gui_init{
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
 
-        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.3,height:self.BlockHeight));
-        self.water_val.layer.borderWidth = 1
+        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.water_val.layer.borderWidth = 0
+        self.water_val.isUserInteractionEnabled = false;
+        self.water_val.textAlignment = .center;
         self.view.addSubview(self.water_val);
         
       
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left
         
+    }
+    
+    @objc func readTimerCode(sender: Timer!){
+        print("timer code: ");
+
+        conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                self.temp_val.text =  String(myValue);
+            }
+        });
+        
+        conditionRef.child("Water_Level").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                if(myValue == 1){
+                    self.water_val.text =  "High";
+                }
+                else{
+                    self.water_val.text =  "Low";
+                }
+            }
+        });
+        
+
     }
     
     @objc func buttonAction(sender: UIButton!){
