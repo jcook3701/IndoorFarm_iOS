@@ -108,6 +108,7 @@ class controlWindow_2: gui_init{
         self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.2 ,width:screenWidth*0.4,height:BlockHeight));
         self.lightSwitch.tag = 0;
         self.lightSwitch.setOn(false, animated: true);
+        self.lightSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         self.view.addSubview(self.lightSwitch);
         
         //----------Water Pump----------//
@@ -121,12 +122,13 @@ class controlWindow_2: gui_init{
         self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpSwitch.tag = 1;
         self.waterPumpSwitch.setOn(false, animated: true);
+        self.waterPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         self.view.addSubview(self.waterPumpSwitch);
         
         
         //----------Drain Pump----------//
         self.drainPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
-        self.drainPumpView.text = " Water Pump: "
+        self.drainPumpView.text = " Drain Pump: "
         self.drainPumpView.isUserInteractionEnabled = false;
         self.drainPumpView.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
@@ -135,6 +137,7 @@ class controlWindow_2: gui_init{
         self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpSwitch.tag = 2;
         self.drainPumpSwitch.setOn(false, animated: true);
+        self.drainPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         self.view.addSubview(self.drainPumpSwitch);
         
         //----------Add Settings Data Button----------//
@@ -184,13 +187,32 @@ class controlWindow_2: gui_init{
     @objc func switchAction(sender: UISwitch!){
         let tag = sender.tag;
         if(tag == 0){//Light Switch
-            
+            print("Light Value Changed");
+            //conditionRef.child("users").child((user.uid)).child("Grow_Light").setValue("1");
+            if(sender.isOn == true){
+                conditionRef.child("Grow_Light").setValue("1");
+            }
+            else{
+                conditionRef.child("Grow_Light").setValue("0");
+            }
         }
         if(tag == 1){//Water Pump Switch
-            
+            print("Water Pump Value Changed");
+            if(sender.isOn == true){
+                conditionRef.child("Water_Pump").setValue("1");
+            }
+            else{
+                conditionRef.child("Water_Pump").setValue("0");
+            }
         }
-        if(tag == 2){//Drain Pump Switch 
-            
+        if(tag == 2){//Drain Pump Switch
+            print("Drain Pump Value Changed");
+            if(sender.isOn == true){
+                conditionRef.child("Drain_Pump").setValue("1");
+            }
+            else{
+                conditionRef.child("Drain_Pump").setValue("0");
+            }
         }
     }
     
