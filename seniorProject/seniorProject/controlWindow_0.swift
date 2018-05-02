@@ -27,6 +27,8 @@ class controlWindow_0: gui_init{
     var addSettingsDataButton: UIButton!;
     var temperature: UITextView!;
     var waterLevel: UITextView!;
+    var temp_val: UITextView!;
+    var water_val: UITextView!;
     
     
     
@@ -75,6 +77,8 @@ class controlWindow_0: gui_init{
         self.addSettingsDataButton = UIButton();
         self.waterLevel = UITextView();
         self.temperature = UITextView();
+        self.water_val = UITextView();
+        self.temp_val = UITextView();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -86,22 +90,28 @@ class controlWindow_0: gui_init{
       //  self.view.backgroundColor = UIColor.blue
         
         //----------Temperature Value----------//
-        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.2,height:self.BlockHeight));
+        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.2,height:self.BlockHeight));
         self.temperature.text = " Temperature: "
+        self.temperature.isUserInteractionEnabled = false;
         self.temperature.layer.borderWidth = 1
+        self.temp_val.layer.borderWidth = 1
         self.view.addSubview(self.temperature);
+        self.view.addSubview(self.temp_val);
+
         
         
         
-        //----------Password----------//
-        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
+        //----------Water Level----------//
+        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.2,height:BlockHeight));
         self.waterLevel.text = " Water level: "
+        self.waterLevel.isUserInteractionEnabled = false;
         self.waterLevel.layer.borderWidth = 1
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
         
         
-        
+    /*
         
         //----------Add Settings Data Button----------//
         self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
@@ -114,14 +124,7 @@ class controlWindow_0: gui_init{
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
         view.addSubview(self.addSettingsDataButton);
 
-        //----------Temperature Value---------//
-
-        
-        
-        
-        
-        //----------Water Level---------------//
-
+*/
         
         
         
