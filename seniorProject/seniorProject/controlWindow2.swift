@@ -190,28 +190,28 @@ class controlWindow_2: gui_init{
             print("Light Value Changed");
             //conditionRef.child("users").child((user.uid)).child("Grow_Light").setValue("1");
             if(sender.isOn == true){
-                conditionRef.child("Grow_Light").setValue("1");
+                conditionRef.child("Grow_Light").setValue(1);
             }
             else{
-                conditionRef.child("Grow_Light").setValue("0");
+                conditionRef.child("Grow_Light").setValue(0);
             }
         }
         if(tag == 1){//Water Pump Switch
             print("Water Pump Value Changed");
             if(sender.isOn == true){
-                conditionRef.child("Water_Pump").setValue("1");
+                conditionRef.child("Water_Pump").setValue(1);
             }
             else{
-                conditionRef.child("Water_Pump").setValue("0");
+                conditionRef.child("Water_Pump").setValue(0);
             }
         }
         if(tag == 2){//Drain Pump Switch
             print("Drain Pump Value Changed");
             if(sender.isOn == true){
-                conditionRef.child("Drain_Pump").setValue("1");
+                conditionRef.child("Drain_Pump").setValue(1);
             }
             else{
-                conditionRef.child("Drain_Pump").setValue("0");
+                conditionRef.child("Drain_Pump").setValue(0);
             }
         }
     }
