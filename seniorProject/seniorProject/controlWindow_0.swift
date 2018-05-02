@@ -24,9 +24,11 @@ class controlWindow_0: gui_init{
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
-    var pumpButton: UIButton!;
     var addSettingsDataButton: UIButton!;
-    var lightbutton: UIButton!;
+    var temperature: UITextView!;
+    var waterLevel: UITextView!;
+    
+    
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -71,6 +73,8 @@ class controlWindow_0: gui_init{
         self.passwordView = UITextField();
         self.logoutButton = UIButton();
         self.addSettingsDataButton = UIButton();
+        self.waterLevel = UITextView();
+        self.temperature = UITextView();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -79,20 +83,24 @@ class controlWindow_0: gui_init{
         conditionRef = Database.database().reference();
         
         //----------Settings----------//
-        self.view.backgroundColor = UIColor.blue
+      //  self.view.backgroundColor = UIColor.blue
         
-        //----------Username----------//
-        self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.usernameView.placeholder = " name: "
-        self.usernameView.layer.borderWidth = 1
-        self.view.addSubview(self.usernameView);
+        //----------Temperature Value----------//
+        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.temperature.text = " Temperature: "
+        self.temperature.layer.borderWidth = 1
+        self.view.addSubview(self.temperature);
+        
+        
         
         //----------Password----------//
-        self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView.placeholder = " trait: "
-        self.passwordView.layer.borderWidth = 1
+        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
+        self.waterLevel.text = " Water level: "
+        self.waterLevel.layer.borderWidth = 1
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.passwordView);
+        self.view.addSubview(self.waterLevel);
+        
+        
         
         
         //----------Add Settings Data Button----------//
@@ -106,50 +114,19 @@ class controlWindow_0: gui_init{
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
         view.addSubview(self.addSettingsDataButton);
 
-        //---------PumpButton-------//
-        
-        self.pumpButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight));
-        self.pumpButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.pumpButton.tag = 1;
-        self.pumpButton.setTitle(String("Pump Water"), for: .normal);
-        self.pumpButton.layer.borderColor = UIColor.black.cgColor;
-        self.pumpButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.pumpButton);
-        
-        //---------LightButton-------//
-        
-        self.lightbutton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight));
-        self.lightbutton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.lightbutton.tag = 1;
-        self.lightbutton.setTitle(String("Turn on Lights"), for: .normal);
-        self.lightbutton.layer.borderColor = UIColor.black.cgColor;
-        self.lightbutton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.lightbutton);
-        
-        
-        //----------Logout Button----------//
-        self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
-        self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.logoutButton.tag = 1;
-        self.logoutButton.setTitle(String("Logout"), for: .normal);
-        self.logoutButton.layer.borderColor = UIColor.black.cgColor;
-        self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.logoutButton);
-        
-        
-        
-        //--------DropDownMenu-------//
-        let dropDown = DropDown();
-        
-        dropDown.anchorView = view;
-        dropDown.dataSource = ["Beansprout", "Poppy Seeds", "Theobroma cacao"];
-        
-        
-        dropDown.show();
-        dropDown.direction = .any
-        //dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+        //----------Temperature Value---------//
 
         
+        
+        
+        
+        //----------Water Level---------------//
+
+        
+        
+        
+        
+      
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left
         
