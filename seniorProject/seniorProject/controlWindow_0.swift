@@ -90,8 +90,8 @@ class controlWindow_0: gui_init{
       //  self.view.backgroundColor = UIColor.blue
         
         //----------Temperature Value----------//
-        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.2,height:self.BlockHeight));
-        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.2,height:self.BlockHeight));
+        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.3,height:self.BlockHeight));
         self.temperature.text = " Temperature: "
         self.temperature.isUserInteractionEnabled = false;
         self.temperature.layer.borderWidth = 1
@@ -103,12 +103,16 @@ class controlWindow_0: gui_init{
         
         
         //----------Water Level----------//
-        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.2,height:BlockHeight));
+        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.3,height:self.BlockHeight));
         self.waterLevel.text = " Water level: "
         self.waterLevel.isUserInteractionEnabled = false;
         self.waterLevel.layer.borderWidth = 1
+        self.water_val.layer.borderWidth = 1
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
+        self.view.addSubview(self.water_val);
+
         
         
     /*
