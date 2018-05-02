@@ -17,12 +17,18 @@ import FirebaseDatabase
 class controlWindow_2: gui_init{
     
     //----------GUI Variables----------//
-    var usernameView: UITextField!;
-    var passwordView: UITextField!;
+    var titleView: UITextField!;
+    var lightsView: UITextField!;
+    var waterPumpView: UITextField!;
+    var drainPumpView: UITextField!;
     var logoutButton: UIButton!;
     var raiseLights: UIButton!;
     var lowerLights: UIButton!;
     var addSettingsDataButton: UIButton!;
+    
+    var lightSwitch: UISwitch!;
+    var waterPumpSwitch: UISwitch!;
+    var drainPumpSwitch: UISwitch!;
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -63,10 +69,15 @@ class controlWindow_2: gui_init{
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
         //----------Init GUI Variables----------//
-        self.usernameView = UITextField();
-        self.passwordView = UITextField();
+        self.titleView = UITextField();
+        self.lightsView = UITextField();
+        self.waterPumpView = UITextField();
+        self.drainPumpView = UITextField();
         self.logoutButton = UIButton();
         self.addSettingsDataButton = UIButton();
+        self.lightSwitch = UISwitch();
+        self.waterPumpSwitch = UISwitch();
+        self.drainPumpSwitch = UISwitch();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -75,23 +86,56 @@ class controlWindow_2: gui_init{
         conditionRef = Database.database().reference();
         
         //----------Settings----------//
-        self.view.backgroundColor = UIColor.green
+        //self.view.backgroundColor = UIColor.green
 
         
+        //----------Title----------//
+        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.titleView.text = " Manual Settings "
+        self.titleView.textAlignment = .center;
+        self.titleView.isUserInteractionEnabled = false;
+        self.titleView.layer.borderWidth = 0;
+        self.view.addSubview(self.titleView);
         
-        //----------Username----------//
-        self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.usernameView.placeholder = " name: "
-        self.usernameView.layer.borderWidth = 1
-        self.view.addSubview(self.usernameView);
         
-        //----------Password----------//
-        self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView.placeholder = " trait: "
-        self.passwordView.layer.borderWidth = 1
+        //----------Lights----------//
+        self.lightsView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.2 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.lightsView.text = " Lights: "
+        self.lightsView.isUserInteractionEnabled = false;
+        self.lightsView.layer.borderWidth = 0
+        self.view.addSubview(self.lightsView);
+        
+        self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.2 ,width:screenWidth*0.4,height:BlockHeight));
+        self.lightSwitch.tag = 0;
+        self.lightSwitch.setOn(false, animated: true);
+        self.view.addSubview(self.lightSwitch);
+        
+        //----------Water Pump----------//
+        self.waterPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPumpView.text = " Water Pump: "
+        self.waterPumpView.isUserInteractionEnabled = false;
+        self.waterPumpView.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.passwordView);
+        self.view.addSubview(self.waterPumpView);
         
+        self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPumpSwitch.tag = 1;
+        self.waterPumpSwitch.setOn(false, animated: true);
+        self.view.addSubview(self.waterPumpSwitch);
+        
+        
+        //----------Drain Pump----------//
+        self.drainPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drainPumpView.text = " Water Pump: "
+        self.drainPumpView.isUserInteractionEnabled = false;
+        self.drainPumpView.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.drainPumpView);
+        
+        self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drainPumpSwitch.tag = 2;
+        self.drainPumpSwitch.setOn(false, animated: true);
+        self.view.addSubview(self.drainPumpSwitch);
         
         //----------Add Settings Data Button----------//
         self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
@@ -135,6 +179,19 @@ class controlWindow_2: gui_init{
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left
         
+    }
+    
+    @objc func switchAction(sender: UISwitch!){
+        let tag = sender.tag;
+        if(tag == 0){//Light Switch
+            
+        }
+        if(tag == 1){//Water Pump Switch
+            
+        }
+        if(tag == 2){//Drain Pump Switch 
+            
+        }
     }
     
     @objc func buttonAction(sender: UIButton!){
