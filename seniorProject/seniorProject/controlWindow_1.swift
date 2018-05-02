@@ -17,6 +17,7 @@ import FirebaseDatabase
 class controlWindow_1: gui_init{
     
     //----------GUI Variables----------//
+    var titleView: UITextField!;
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
@@ -75,9 +76,15 @@ class controlWindow_1: gui_init{
         conditionRef = Database.database().reference();
         
         //----------Settings----------//
-        self.view.backgroundColor = UIColor.red
+        //self.view.backgroundColor = UIColor.red
 
-        
+        //----------Title----------//
+        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.titleView.text = " Plant/ Farm Info "
+        self.titleView.textAlignment = .center;
+        self.titleView.isUserInteractionEnabled = false;
+        self.titleView.layer.borderWidth = 0;
+        self.view.addSubview(self.titleView);
         
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));

@@ -21,14 +21,15 @@ class controlWindow_2: gui_init{
     var lightsView: UITextField!;
     var waterPumpView: UITextField!;
     var drainPumpView: UITextField!;
+    var waterPurifierView: UITextField!;
     var logoutButton: UIButton!;
     var raiseLights: UIButton!;
     var lowerLights: UIButton!;
-    var addSettingsDataButton: UIButton!;
     
     var lightSwitch: UISwitch!;
     var waterPumpSwitch: UISwitch!;
     var drainPumpSwitch: UISwitch!;
+    var waterPurifierSwitch: UISwitch!;
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -73,11 +74,13 @@ class controlWindow_2: gui_init{
         self.lightsView = UITextField();
         self.waterPumpView = UITextField();
         self.drainPumpView = UITextField();
+        self.waterPurifierView = UITextField();
         self.logoutButton = UIButton();
-        self.addSettingsDataButton = UIButton();
         self.lightSwitch = UISwitch();
         self.waterPumpSwitch = UISwitch();
         self.drainPumpSwitch = UISwitch();
+        self.waterPurifierSwitch = UISwitch();
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -140,16 +143,19 @@ class controlWindow_2: gui_init{
         self.drainPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         self.view.addSubview(self.drainPumpSwitch);
         
-        //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
-        self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.addSettingsDataButton.tag = 0;
-        self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
-        //self.addSettingsDataButton.titleLabel?.font = self.addSettingsDataButton.titleLabel?.font.withSize(screenHeight/40)
-        self.addSettingsDataButton.layer.borderColor = UIColor.black.cgColor;
-        self.addSettingsDataButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        view.addSubview(self.addSettingsDataButton);
+        //----------Water Purifier----------//
+        self.waterPurifierView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPurifierView.text = " Drain Pump: "
+        self.waterPurifierView.isUserInteractionEnabled = false;
+        self.waterPurifierView.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.waterPurifierView);
+        
+        self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPurifierSwitch.tag = 3;
+        self.waterPurifierSwitch.setOn(false, animated: true);
+        self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
+        self.view.addSubview(self.waterPurifierSwitch);
         
         //----------RaiseLights----------//
         self.raiseLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
@@ -212,6 +218,15 @@ class controlWindow_2: gui_init{
             }
             else{
                 conditionRef.child("Drain_Pump").setValue(0);
+            }
+        }
+        if(tag == 3){//Water_Purifier
+            print("Water Purifier Value Changed");
+            if(sender.isOn == true){
+                conditionRef.child("Water_Purifier").setValue(1);
+            }
+            else{
+                conditionRef.child("Water_Purifier").setValue(0);
             }
         }
     }

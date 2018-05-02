@@ -21,6 +21,7 @@ import FirebaseDatabase
 class controlWindow_0: gui_init{
     
     //----------GUI Variables----------//
+    var titleView: UITextField!;
     var usernameView: UITextField!;
     var passwordView: UITextField!;
     var logoutButton: UIButton!;
@@ -89,49 +90,37 @@ class controlWindow_0: gui_init{
         //----------Settings----------//
       //  self.view.backgroundColor = UIColor.blue
         
+        //----------Title----------//
+        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.titleView.text = " Plant Settings "
+        self.titleView.textAlignment = .center;
+        self.titleView.isUserInteractionEnabled = false;
+        self.titleView.layer.borderWidth = 0;
+        self.view.addSubview(self.titleView);
+        
         //----------Temperature Value----------//
         self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
-        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.3,height:self.BlockHeight));
         self.temperature.text = " Temperature: "
         self.temperature.isUserInteractionEnabled = false;
-        self.temperature.layer.borderWidth = 1
-        self.temp_val.layer.borderWidth = 1
+        self.temperature.layer.borderWidth = 0
         self.view.addSubview(self.temperature);
+
+        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.3,height:self.BlockHeight));
+        self.temp_val.layer.borderWidth = 1
         self.view.addSubview(self.temp_val);
 
         
-        
-        
         //----------Water Level----------//
         self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
-        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.3,height:self.BlockHeight));
         self.waterLevel.text = " Water level: "
         self.waterLevel.isUserInteractionEnabled = false;
-        self.waterLevel.layer.borderWidth = 1
-        self.water_val.layer.borderWidth = 1
+        self.waterLevel.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
+
+        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.3,height:self.BlockHeight));
+        self.water_val.layer.borderWidth = 1
         self.view.addSubview(self.water_val);
-
-        
-        
-    /*
-        
-        //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
-        self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.addSettingsDataButton.tag = 0;
-        self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
-        //self.addSettingsDataButton.titleLabel?.font = self.addSettingsDataButton.titleLabel?.font.withSize(screenHeight/40)
-        self.addSettingsDataButton.layer.borderColor = UIColor.black.cgColor;
-        self.addSettingsDataButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        view.addSubview(self.addSettingsDataButton);
-
-*/
-        
-        
-        
         
       
         //----------Possibly Helpful CMDS----------//
