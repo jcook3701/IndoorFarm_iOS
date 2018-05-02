@@ -22,14 +22,12 @@ class controlWindow_0: gui_init{
     
     //----------GUI Variables----------//
     var titleView: UITextField!;
-    var usernameView: UITextField!;
-    var passwordView: UITextField!;
     var logoutButton: UIButton!;
     var addSettingsDataButton: UIButton!;
-    var temperature: UITextView!;
-    var waterLevel: UITextView!;
-    var temp_val: UITextView!;
-    var water_val: UITextView!;
+    var temperature: UITextField!;
+    var waterLevel: UITextField!;
+    var temp_val: UITextField!;
+    var water_val: UITextField!;
     
     var readTimer : Timer!;
 
@@ -74,14 +72,12 @@ class controlWindow_0: gui_init{
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
         //----------Init GUI Variables----------//
-        self.usernameView = UITextField();
-        self.passwordView = UITextField();
         self.logoutButton = UIButton();
         self.addSettingsDataButton = UIButton();
-        self.waterLevel = UITextView();
-        self.temperature = UITextView();
-        self.water_val = UITextView();
-        self.temp_val = UITextView();
+        self.waterLevel = UITextField();
+        self.temperature = UITextField();
+        self.water_val = UITextField();
+        self.temp_val = UITextField();
         
         self.readTimer = Timer();
 
@@ -126,13 +122,15 @@ class controlWindow_0: gui_init{
         self.view.addSubview(self.titleView);
         
         //----------Temperature Value----------//
-        self.temperature = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        
+        self.temperature = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+
         self.temperature.text = " Temperature: "
         self.temperature.isUserInteractionEnabled = false;
         self.temperature.layer.borderWidth = 0
         self.view.addSubview(self.temperature);
 
-        self.temp_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.temp_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
         self.temp_val.layer.borderWidth = 0
         self.temp_val.isUserInteractionEnabled = false;
         self.temp_val.textAlignment = .center;
@@ -140,14 +138,14 @@ class controlWindow_0: gui_init{
 
         
         //----------Water Level----------//
-        self.waterLevel = UITextView(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterLevel = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterLevel.text = " Water level: "
         self.waterLevel.isUserInteractionEnabled = false;
         self.waterLevel.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
 
-        self.water_val = UITextView(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.water_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.4,height:self.BlockHeight));
         self.water_val.layer.borderWidth = 0
         self.water_val.isUserInteractionEnabled = false;
         self.water_val.textAlignment = .center;
