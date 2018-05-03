@@ -96,6 +96,7 @@ class emailLoginWindow: gui_init{
         self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
         self.passwordView.placeholder = " Password: "
         self.passwordView.layer.borderWidth = 1
+        self.passwordView.isSecureTextEntry = true;
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.passwordView);
         

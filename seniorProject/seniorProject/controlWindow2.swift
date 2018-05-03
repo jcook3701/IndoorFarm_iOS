@@ -145,7 +145,7 @@ class controlWindow_2: gui_init{
         
         //----------Water Purifier----------//
         self.waterPurifierView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
-        self.waterPurifierView.text = " Drain Pump: "
+        self.waterPurifierView.text = " Water Purifier: "
         self.waterPurifierView.isUserInteractionEnabled = false;
         self.waterPurifierView.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
