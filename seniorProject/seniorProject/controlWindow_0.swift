@@ -171,10 +171,10 @@ class controlWindow_0: gui_init{
             if let myValue = snapshot.value as? Int{
                 //print(myValue);
                 if(myValue == 1){
-                    self.water_val.text =  "High";
+                    self.water_val.text =  "Water Available";
                 }
                 else{
-                    self.water_val.text =  "Low";
+                    self.water_val.text =  "Resevoir Empty";
                 }
             }
         });
