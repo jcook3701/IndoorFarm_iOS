@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+//-----DropDown Imports -----//
+import UIDropDown
+
 //-----Facebook Imports -----//
 import Firebase
 import FirebaseAuth
@@ -18,12 +21,18 @@ class controlWindow_1: gui_init{
     
     //----------GUI Variables----------//
     var titleView: UITextField!;
-    var usernameView: UITextField!;
-    var passwordView: UITextField!;
-    var logoutButton: UIButton!;
-    var airPurifier: UIButton!;
-    var addSettingsDataButton: UIButton!;
-    var drainButton: UIButton!;
+    var planNameView: UITextField!;
+    var plantTraitView: UITextField!;
+    var growLightRunTimeView: UITextField!;
+    var growLightSleepTimeView: UITextField!;
+    var waterPumpRunTimeView: UITextField!;
+    var waterPumpSleepTimeView: UITextField!;
+    
+    //----------DropDown Variables----------//
+    var drop: UIDropDown!
+    private var dropCurrentVals: (value:String, position:Int)?
+    private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
+    public var variableNames = Array<String>();                     //For drop down box    }
     
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
@@ -64,10 +73,9 @@ class controlWindow_1: gui_init{
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
         //----------Init GUI Variables----------//
-        self.usernameView = UITextField();
-        self.passwordView = UITextField();
-        self.logoutButton = UIButton();
-        self.addSettingsDataButton = UIButton();
+        self.planNameView = UITextField();
+        self.plantTraitView = UITextField();
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -80,66 +88,65 @@ class controlWindow_1: gui_init{
 
         //----------Title----------//
         self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.titleView.text = " Plant/ Farm Info "
+        self.titleView.text = " Plant Settings "
         self.titleView.textAlignment = .center;
         self.titleView.isUserInteractionEnabled = false;
         self.titleView.layer.borderWidth = 0;
         self.view.addSubview(self.titleView);
         
-        //----------Username----------//
-        self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.usernameView.placeholder = " name: "
-        self.usernameView.layer.borderWidth = 1
-        self.view.addSubview(self.usernameView);
+        //----------Drop Down Menu----------//
+        self.drop = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
+            self.screenHeight*0.2, width: self.screenWidth*0.9, height: 30));
+        self.drop.backgroundColor = UIColor.white;
+        //drop.center = CGPoint(x: self.view.frame.midX, y: self.view.frame.midY)
+        self.drop.placeholder = "Plant Select"
+        self.drop.options = ["Mexico", "USA", "England", "France", "Germany", "Spain", "Italy", "Canada"]
+        self.drop.didSelect{(option, index) in
+            //print("String: " + (option) + " number: " + String(index));
+            self.dropCurrentVals = (option, index);
+        }
+        //self.drop.options = self.variableNames;
+        self.view.addSubview(self.drop);
+
         
-        //----------Password----------//
-        self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView.placeholder = " trait: "
-        self.passwordView.layer.borderWidth = 1
+        //----------planNameView----------//
+        self.planNameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.43,height:self.BlockHeight));
+        self.planNameView.placeholder = " Plant Name: "
+        self.planNameView.layer.borderWidth = 1
+        self.view.addSubview(self.planNameView);
+        
+        //----------plantTraitView----------//
+        self.plantTraitView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.4 ,width:self.screenWidth*0.43,height:BlockHeight));
+        self.plantTraitView.placeholder = " Plant Trait: "
+        self.plantTraitView.layer.borderWidth = 1
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.passwordView);
+        self.view.addSubview(self.plantTraitView);
         
+        //----------growLightRunTimeView----------//
+        self.growLightRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.43,height:self.BlockHeight));
+        self.growLightRunTimeView.placeholder = " Grow Light Run Time: "
+        self.growLightRunTimeView.layer.borderWidth = 1
+        self.view.addSubview(self.growLightRunTimeView);
         
-        //----------Add Settings Data Button----------//
-        self.addSettingsDataButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight))
-        self.addSettingsDataButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.addSettingsDataButton.tag = 0;
-        self.addSettingsDataButton.setTitle(String(" write Database"), for: .normal);
-        //self.addSettingsDataButton.titleLabel?.font = self.addSettingsDataButton.titleLabel?.font.withSize(screenHeight/40)
-        self.addSettingsDataButton.layer.borderColor = UIColor.black.cgColor;
-        self.addSettingsDataButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        view.addSubview(self.addSettingsDataButton);
+        //----------growLightSleepTimeView----------//
+        self.growLightSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.5 ,width:self.screenWidth*0.43,height:BlockHeight));
+        self.growLightSleepTimeView.placeholder = " Grow Light Sleep Time: "
+        self.growLightSleepTimeView.layer.borderWidth = 1
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.growLightSleepTimeView);
         
-        //---------AirPurifier-------//
+        //----------waterPumpRunTimeView----------//
+        self.waterPumpRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.6 ,width:self.screenWidth*0.43,height:self.BlockHeight));
+        self.waterPumpRunTimeView.placeholder = " Grow Light Run Time: "
+        self.waterPumpRunTimeView.layer.borderWidth = 1
+        self.view.addSubview(self.waterPumpRunTimeView);
         
-        self.airPurifier = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight));
-        self.airPurifier.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.airPurifier.tag = 1;
-        self.airPurifier.setTitle(String("Turn on Air Purifier"), for: .normal);
-        self.airPurifier.layer.borderColor = UIColor.black.cgColor;
-        self.airPurifier.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.airPurifier);
-        
-        //---------DrainButton-------//
-        
-        self.drainButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight));
-        self.drainButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.drainButton.tag = 1;
-        self.drainButton.setTitle(String("Drain Water"), for: .normal);
-        self.drainButton.layer.borderColor = UIColor.black.cgColor;
-        self.drainButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.drainButton);
-        
-        //----------LogoutButton----------//
-        self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
-        self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.logoutButton.tag = 1;
-        self.logoutButton.setTitle(String("Logout"), for: .normal);
-        self.logoutButton.layer.borderColor = UIColor.black.cgColor;
-        self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        view.addSubview(self.logoutButton);
-        
+        //----------waterPumpSleepTimeView----------//
+        self.waterPumpSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.6 ,width:self.screenWidth*0.43,height:BlockHeight));
+        self.waterPumpSleepTimeView.placeholder = " Grow Light Sleep Time: "
+        self.waterPumpSleepTimeView.layer.borderWidth = 1
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.waterPumpSleepTimeView);
         
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left

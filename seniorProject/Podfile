@@ -22,7 +22,6 @@ target 'seniorProject' do
   pod 'FacebookShare'
   
   #-----DropDown-----#
-  pod 'DropDown'
-  
+  pod 'UIDropDown'
   
 end
