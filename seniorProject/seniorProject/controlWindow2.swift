@@ -32,8 +32,7 @@ class controlWindow_2: gui_init{
     var waterPurifierView: UITextField!;
     var waterPurifierSwitch: UISwitch!;
     //----------Row 5----------//
-    
-    
+    var platformTitleView: UITextField!;
     //----------Row 6----------//
     var resetPlatformSegmentControl: UISegmentedControl!;
     //----------Row 7----------//
@@ -81,8 +80,7 @@ class controlWindow_2: gui_init{
         self.waterPurifierView = UITextField();
         self.waterPurifierSwitch = UISwitch();
         //----------Row 5----------//
-
-        
+        self.platformTitleView = UITextField();
         //----------Row 6----------//
         let resetPlatformitems = ["Mode 0", "Mode 1"];
         self.resetPlatformSegmentControl = UISegmentedControl(items: resetPlatformitems);
@@ -163,6 +161,14 @@ class controlWindow_2: gui_init{
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //----------------Moving Platform----------------//
+        //----------platformTitleView----------//
+        self.platformTitleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
+            self.screenHeight*0.52 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.platformTitleView.text = " Platform Settings "
+        self.platformTitleView.textAlignment = .center;
+        self.platformTitleView.isUserInteractionEnabled = false;
+        self.platformTitleView.layer.borderWidth = 0;
+        
         //----------resetPlatformSegmentControl----------//
         self.resetPlatformSegmentControl.frame = CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight);
         self.resetPlatformSegmentControl.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
@@ -209,8 +215,7 @@ class controlWindow_2: gui_init{
         self.view.addSubview(self.waterPurifierView);
         self.view.addSubview(self.waterPurifierSwitch);
         //----------Row 5----------//
-
-        
+        self.view.addSubview(self.platformTitleView);
         //----------Row 6----------//
         self.view.addSubview(self.resetPlatformSegmentControl);
         //----------Row 7----------//
