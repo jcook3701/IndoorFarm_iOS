@@ -27,6 +27,9 @@ class controlWindow_1: gui_init{
     var growLightSleepTimeView: UITextField!;
     var waterPumpRunTimeView: UITextField!;
     var waterPumpSleepTimeView: UITextField!;
+    var createSettingsButton: UIButton!;
+    var deleteSettingsButton: UIButton!;
+    var startButtton: UIButton!;
     
     //----------DropDown Variables----------//
     var drop: UIDropDown!
@@ -71,9 +74,16 @@ class controlWindow_1: gui_init{
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
         //----------Init GUI Variables----------//
+        self.titleView = UITextField();
         self.planNameView = UITextField();
         self.plantTraitView = UITextField();
-
+        self.growLightRunTimeView = UITextField();
+        self.growLightSleepTimeView = UITextField();
+        self.waterPumpRunTimeView = UITextField();
+        self.waterPumpSleepTimeView = UITextField();
+        self.createSettingsButton = UIButton();
+        self.deleteSettingsButton = UIButton();
+        self.startButtton = UIButton();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -90,13 +100,11 @@ class controlWindow_1: gui_init{
         self.titleView.textAlignment = .center;
         self.titleView.isUserInteractionEnabled = false;
         self.titleView.layer.borderWidth = 0;
-        self.view.addSubview(self.titleView);
         
         //----------Drop Down Menu----------//
         self.drop = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
             self.screenHeight*0.2, width: self.screenWidth*0.9, height: 30));
         self.drop.backgroundColor = UIColor.white;
-        //drop.center = CGPoint(x: self.view.frame.midX, y: self.view.frame.midY)
         self.drop.placeholder = "Plant Select"
         self.drop.options = ["Mexico", "USA", "England", "France", "Germany", "Spain", "Italy", "Canada"]
         self.drop.didSelect{(option, index) in
@@ -104,7 +112,6 @@ class controlWindow_1: gui_init{
             self.dropCurrentVals = (option, index);
         }
         //self.drop.options = self.variableNames;
-        self.view.addSubview(self.drop);
 
         
         //----------planNameView----------//
@@ -112,42 +119,87 @@ class controlWindow_1: gui_init{
         self.planNameView.placeholder = " Plant Name: "
         self.planNameView.layer.borderWidth = 1
         self.planNameView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.planNameView);
         
         //----------plantTraitView----------//
         self.plantTraitView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.3 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.plantTraitView.placeholder = " Plant Trait: "
         self.plantTraitView.layer.borderWidth = 1
         self.plantTraitView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.plantTraitView);
         
         //----------growLightRunTimeView----------//
         self.growLightRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.growLightRunTimeView.placeholder = " Grow Light Run Time: "
         self.growLightRunTimeView.layer.borderWidth = 1
         self.growLightRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.growLightRunTimeView);
         
         //----------growLightSleepTimeView----------//
         self.growLightSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.5 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.growLightSleepTimeView.placeholder = " Grow Light Sleep Time: "
         self.growLightSleepTimeView.layer.borderWidth = 1
         self.growLightSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.growLightSleepTimeView);
         
         //----------waterPumpRunTimeView----------//
         self.waterPumpRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.6 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.waterPumpRunTimeView.placeholder = " Grow Light Run Time: "
         self.waterPumpRunTimeView.layer.borderWidth = 1
         self.waterPumpRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        self.view.addSubview(self.waterPumpRunTimeView);
         
         //----------waterPumpSleepTimeView----------//
         self.waterPumpSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.6 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.waterPumpSleepTimeView.placeholder = " Grow Light Sleep Time: "
         self.waterPumpSleepTimeView.layer.borderWidth = 1
         self.waterPumpSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        
+        //----------createSettingsButton----------//
+        self.createSettingsButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.7 ,width:self.screenWidth*0.43,height:BlockHeight))
+        self.createSettingsButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.createSettingsButton.tag = 0;
+        self.createSettingsButton.setTitle(String("Create Settings"), for: .normal);
+        self.createSettingsButton.layer.cornerRadius = 5;
+        self.createSettingsButton.layer.borderColor = UIColor.black.cgColor;
+        //self.createSettingsButton.layer.borderWidth = 1
+        self.createSettingsButton.backgroundColor = UIColor(displayP3Red: 0.35, green: 0.6, blue: 0.35, alpha: 1.0);
+        
+        //----------deleteSettingsButton----------//
+        self.deleteSettingsButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y:
+            screenHeight*0.7 ,width:self.screenWidth*0.43,height:BlockHeight))
+        self.deleteSettingsButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.deleteSettingsButton.tag = 1;
+        self.deleteSettingsButton.setTitle(String("Delete Settings"), for: .normal);
+        self.deleteSettingsButton.layer.cornerRadius = 5;
+        self.deleteSettingsButton.layer.borderColor = UIColor.black.cgColor;
+        //self.deleteSettingsButton.layer.borderWidth = 1
+        self.deleteSettingsButton.backgroundColor = UIColor(displayP3Red: 0.9, green: 0.2, blue: 0.2, alpha: 1.0);
+
+        //----------startButtton----------//
+        self.startButtton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
+        self.startButtton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.startButtton.tag = 2;
+        self.startButtton.setTitle(String("Start Growing"), for: .normal);
+        self.startButtton.layer.cornerRadius = 5;
+        self.startButtton.layer.borderColor = UIColor.black.cgColor;
+        //self.startButtton.layer.borderWidth = 1
+        self.startButtton.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0);
+
+        
+        
+        //----------Initialize GUI objects by adding them to the subview----------//
+        self.view.addSubview(self.titleView);
+        self.view.addSubview(self.planNameView);
+        self.view.addSubview(self.plantTraitView);
+        self.view.addSubview(self.growLightRunTimeView);
+        self.view.addSubview(self.growLightSleepTimeView);
+        self.view.addSubview(self.waterPumpRunTimeView);
         self.view.addSubview(self.waterPumpSleepTimeView);
+        view.addSubview(self.createSettingsButton);
+        view.addSubview(self.deleteSettingsButton);
+        view.addSubview(self.startButtton);
+
+        //----------DropDown GUI items need to go last so that you can't see though their dropDown menu----------//
+        self.view.addSubview(self.drop);
+
         
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left
