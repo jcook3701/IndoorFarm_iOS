@@ -86,6 +86,9 @@ class emailLoginWindow: gui_init{
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
         self.usernameView.placeholder = " Username: "
+        self.usernameView.autocorrectionType = .no;
+        self.usernameView.autocapitalizationType = .none;
+        self.usernameView.spellCheckingType = .no;
         self.usernameView.layer.borderWidth = 1
         self.usernameView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.usernameView);
@@ -93,6 +96,9 @@ class emailLoginWindow: gui_init{
         //----------Password----------//
         self.passwordView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
         self.passwordView.placeholder = " Password: "
+        self.passwordView.autocorrectionType = .no;
+        self.passwordView.autocapitalizationType = .none;
+        self.passwordView.spellCheckingType = .no;
         self.passwordView.layer.borderWidth = 1
         self.passwordView.isSecureTextEntry = true;
         self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);

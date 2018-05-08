@@ -63,22 +63,33 @@ class emailSetupWindow: gui_init{
     
         //----------Username----------//
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.usernameView.placeholder = " New Email: "
-        self.usernameView.layer.borderWidth = 1
+        self.usernameView.placeholder = " New Email: ";
+        self.usernameView.autocorrectionType = .no;
+        self.usernameView.autocapitalizationType = .none;
+        self.usernameView.spellCheckingType = .no;
+        self.usernameView.layer.borderWidth = 1;
         self.usernameView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.usernameView);
     
         //----------Password0----------//
         self.passwordView0 = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView0.placeholder = " New Password: "
-        self.passwordView0.layer.borderWidth = 1
+        self.passwordView0.placeholder = " New Password: ";
+        self.passwordView0.autocorrectionType = .no;
+        self.passwordView0.autocapitalizationType = .none;
+        self.passwordView0.spellCheckingType = .no;
+        self.passwordView0.layer.borderWidth = 1;
+        self.passwordView0.isSecureTextEntry = true;
         self.passwordView0.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.passwordView0);
     
         //----------Password1----------//
         self.passwordView1 = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.9,height:BlockHeight));
-        self.passwordView1.placeholder = " Retype Password: "
-        self.passwordView1.layer.borderWidth = 1
+        self.passwordView1.placeholder = " Retype Password: ";
+        self.passwordView1.autocorrectionType = .no;
+        self.passwordView1.autocapitalizationType = .none;
+        self.passwordView1.spellCheckingType = .no;
+        self.passwordView1.layer.borderWidth = 1;
+        self.passwordView1.isSecureTextEntry = true;
         self.passwordView1.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.passwordView1);
     
