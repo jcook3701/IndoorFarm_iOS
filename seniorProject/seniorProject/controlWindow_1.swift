@@ -210,27 +210,14 @@ class controlWindow_1: gui_init{
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
         if(tag == 0){//Login
-            print("Test Button Pushed");
-            guard let user = Auth.auth().currentUser else{
-                print("error no user logged in")
-                return
-            };
-            conditionRef.child("users").child((user.uid)).setValue("Hello Firebase")
+            print("Create Button Pushed");
         }
         if(tag == 1){
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                print("signing out")
-                //----------Pop view controllers----------//
-                navigationController?.popToRootViewController(animated: true)
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-            }
+            print("Delete Button Pushed");
+
         }
         if(tag == 2){
-            //self.ref.child("users").child(user.uid).setValue(["username": username])
-            
+            print("Start Growing Button Pushed");
         }
     }
     
