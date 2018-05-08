@@ -158,7 +158,8 @@ class controlWindow_2: gui_init{
         self.view.addSubview(self.waterPurifierSwitch);
         
         //----------RaiseLights----------//
-        self.raiseLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
+        self.raiseLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight))
         self.raiseLights.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.raiseLights.tag = 1;
         self.raiseLights.setTitle(String("Raise Lights Platform"), for: .normal);
@@ -167,7 +168,8 @@ class controlWindow_2: gui_init{
         view.addSubview(self.raiseLights);
         
         //----------LowerLights----------//
-        self.lowerLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight))
+        self.lowerLights = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.7 ,width:screenWidth*0.9,height:BlockHeight))
         self.lowerLights.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.lowerLights.tag = 1;
         self.lowerLights.setTitle(String("Lower Lights Platform"), for: .normal);
@@ -176,7 +178,8 @@ class controlWindow_2: gui_init{
         view.addSubview(self.lowerLights);
         
         //----------LogoutButton----------//
-        self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
+        self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.logoutButton.tag = 1;
         self.logoutButton.setTitle(String("Logout"), for: .normal);

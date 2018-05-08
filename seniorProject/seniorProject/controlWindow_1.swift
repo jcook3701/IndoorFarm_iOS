@@ -39,16 +39,14 @@ class controlWindow_1: gui_init{
     
     
     //----------Keyboard Hider----------//
-    
-    /*
-     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-     if(self.passwordView.isEditing == false){
-     //self.passwordView.text = "";
-     }
-     else{
-     self.view.endEditing(true);
-     }
-     }*/
+    @objc func textFieldDidBeginEditing(_ textField: UITextField) {
+        if(textField.isEditing == false){
+            //textField.text = textField.text;
+        }
+        else{
+            self.view.endEditing(true);
+        }
+    }
     
     override init() {
         super.init();
@@ -110,42 +108,45 @@ class controlWindow_1: gui_init{
 
         
         //----------planNameView----------//
-        self.planNameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.43,height:self.BlockHeight));
+        self.planNameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.planNameView.placeholder = " Plant Name: "
         self.planNameView.layer.borderWidth = 1
+        self.planNameView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.planNameView);
         
         //----------plantTraitView----------//
-        self.plantTraitView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.4 ,width:self.screenWidth*0.43,height:BlockHeight));
+        self.plantTraitView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.3 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.plantTraitView.placeholder = " Plant Trait: "
         self.plantTraitView.layer.borderWidth = 1
-        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.plantTraitView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.plantTraitView);
         
         //----------growLightRunTimeView----------//
         self.growLightRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.growLightRunTimeView.placeholder = " Grow Light Run Time: "
         self.growLightRunTimeView.layer.borderWidth = 1
+        self.growLightRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.growLightRunTimeView);
         
         //----------growLightSleepTimeView----------//
         self.growLightSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.5 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.growLightSleepTimeView.placeholder = " Grow Light Sleep Time: "
         self.growLightSleepTimeView.layer.borderWidth = 1
-        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.growLightSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.growLightSleepTimeView);
         
         //----------waterPumpRunTimeView----------//
         self.waterPumpRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.6 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.waterPumpRunTimeView.placeholder = " Grow Light Run Time: "
         self.waterPumpRunTimeView.layer.borderWidth = 1
+        self.waterPumpRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterPumpRunTimeView);
         
         //----------waterPumpSleepTimeView----------//
         self.waterPumpSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.6 ,width:self.screenWidth*0.43,height:BlockHeight));
         self.waterPumpSleepTimeView.placeholder = " Grow Light Sleep Time: "
         self.waterPumpSleepTimeView.layer.borderWidth = 1
-        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.waterPumpSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterPumpSleepTimeView);
         
         //----------Possibly Helpful CMDS----------//

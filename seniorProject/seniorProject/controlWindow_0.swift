@@ -75,7 +75,6 @@ class controlWindow_0: gui_init{
         self.temperature = UITextField();
         self.water_val = UITextField();
         self.temp_val = UITextField();
-        
         self.readTimer = Timer();
 
         
@@ -135,7 +134,8 @@ class controlWindow_0: gui_init{
 
         
         //----------Water Level----------//
-        self.waterLevel = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterLevel = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterLevel.text = " Water level: "
         self.waterLevel.isUserInteractionEnabled = false;
         self.waterLevel.layer.borderWidth = 0

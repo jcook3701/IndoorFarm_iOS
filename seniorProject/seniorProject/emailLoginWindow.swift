@@ -27,16 +27,13 @@ class emailLoginWindow: gui_init{
     var navBar: UINavigationBar!;
 
     //----------Keyboard Hider----------//
-    
-    /*
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-        if(self.passwordView.isEditing == false){
-            //self.passwordView.text = "";
+        if(textField.isEditing == false){
         }
         else{
             self.view.endEditing(true);
         }
-    }*/
+    }
     
     override init() {
         super.init();
@@ -90,6 +87,7 @@ class emailLoginWindow: gui_init{
         self.usernameView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.9,height:self.BlockHeight));
         self.usernameView.placeholder = " Username: "
         self.usernameView.layer.borderWidth = 1
+        self.usernameView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.usernameView);
         
         //----------Password----------//
@@ -97,7 +95,7 @@ class emailLoginWindow: gui_init{
         self.passwordView.placeholder = " Password: "
         self.passwordView.layer.borderWidth = 1
         self.passwordView.isSecureTextEntry = true;
-        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.passwordView);
         
         //---------Login Button----------//
