@@ -183,8 +183,6 @@ class controlWindow_1: gui_init{
         //self.startButtton.layer.borderWidth = 1
         self.startButtton.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0);
 
-        
-        
         //----------Initialize GUI objects by adding them to the subview----------//
         self.view.addSubview(self.titleView);
         self.view.addSubview(self.planNameView);
