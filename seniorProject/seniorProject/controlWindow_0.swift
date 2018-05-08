@@ -34,17 +34,26 @@ class controlWindow_0: gui_init{
     var conditionRef: DatabaseReference!
     
     
-    //----------Keyboard Hider----------//
-    
-    /*
-     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-     if(self.passwordView.isEditing == false){
-     //self.passwordView.text = "";
-     }
-     else{
-     self.view.endEditing(true);
-     }
-     }*/
+    //----------readDatabase Function----------//
+    func readDatabase(){
+        conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Double{
+                self.temp_val.text =  String(myValue);
+            }
+        });
+        
+        conditionRef.child("Water_Level").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                if(myValue == 1){
+                    self.water_val.text =  "High";
+                }
+                else{
+                    self.water_val.text =  "Resevoir Empty";
+                }
+            }
+        });
+    }
     
     override init() {
         super.init();
@@ -88,24 +97,7 @@ class controlWindow_0: gui_init{
         //  self.view.backgroundColor = UIColor.blue
         
         //----------Read Timer----------//
-        conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
-            if let myValue = snapshot.value as? Int{
-                //print(myValue);
-                self.temp_val.text =  String(myValue);
-            }
-        });
-        
-        conditionRef.child("Water_Level").observeSingleEvent(of: .value  , with: { (snapshot) in
-            if let myValue = snapshot.value as? Int{
-                //print(myValue);
-                if(myValue == 1){
-                    self.water_val.text =  "High";
-                }
-                else{
-                    self.water_val.text =  "Low";
-                }
-            }
-        });
+        readDatabase();
         readTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(readTimerCode), userInfo: nil, repeats: true);
 
         
@@ -154,29 +146,11 @@ class controlWindow_0: gui_init{
         
     }
     
+
+    
     @objc func readTimerCode(sender: Timer!){
         print("timer code: ");
-
-        conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
-            if let myValue = snapshot.value as? Int{
-                //print(myValue);
-                self.temp_val.text =  String(myValue);
-            }
-        });
-        
-        conditionRef.child("Water_Level").observeSingleEvent(of: .value  , with: { (snapshot) in
-            if let myValue = snapshot.value as? Int{
-                //print(myValue);
-                if(myValue == 1){
-                    self.water_val.text =  "Water Available";
-                }
-                else{
-                    self.water_val.text =  "Resevoir Empty";
-                }
-            }
-        });
-        
-
+        readDatabase();
     }
     
     @objc func buttonAction(sender: UIButton!){
