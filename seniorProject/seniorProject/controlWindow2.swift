@@ -43,6 +43,35 @@ class controlWindow_2: gui_init{
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
     
+    //----------readDatabase Variables----------//
+    
+    //----------readDatabase Function----------//
+    func readDatabase(){
+        conditionRef.child("Grow_Light").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //self.temp_val.text =  String(myValue);
+            }
+        });
+        
+        conditionRef.child("Water_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+
+            }
+        });
+        
+        conditionRef.child("Drain_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                
+            }
+        });
+        
+        conditionRef.child("Water_Purifier").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                
+            }
+        });
+    }
+    
     override init() {
         super.init();
     }

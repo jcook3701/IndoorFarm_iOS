@@ -25,11 +25,8 @@ class controlWindow_0: gui_init{
     var waterLevel: UITextField!;
     var temp_val: UITextField!;
     var water_val: UITextField!;
-    
     var readTimer : Timer!;
 
-    
-    
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
     
