@@ -95,7 +95,8 @@ class controlWindow_1: gui_init{
         //self.view.backgroundColor = UIColor.red
 
         //----------Title----------//
-        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
+            self.screenHeight*0.115 ,width:self.screenWidth*0.9,height:self.BlockHeight));
         self.titleView.text = " Plant Settings "
         self.titleView.textAlignment = .center;
         self.titleView.isUserInteractionEnabled = false;

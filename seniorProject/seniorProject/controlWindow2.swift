@@ -32,10 +32,13 @@ class controlWindow_2: gui_init{
     var waterPurifierView: UITextField!;
     var waterPurifierSwitch: UISwitch!;
     //----------Row 5----------//
-    var resetPlatformSegmentControl: UISegmentedControl!;
+    
+    
     //----------Row 6----------//
-    var resetPlatformButton: UIButton!;
+    var resetPlatformSegmentControl: UISegmentedControl!;
     //----------Row 7----------//
+    var resetPlatformButton: UIButton!;
+    //----------Row 8----------//
     var logoutButton: UIButton!;
     
     //----------Firebase Variables----------//
@@ -78,12 +81,15 @@ class controlWindow_2: gui_init{
         self.waterPurifierView = UITextField();
         self.waterPurifierSwitch = UISwitch();
         //----------Row 5----------//
+
+        
+        //----------Row 6----------//
         let resetPlatformitems = ["Mode 0", "Mode 1"];
         self.resetPlatformSegmentControl = UISegmentedControl(items: resetPlatformitems);
         self.resetPlatformSegmentControl.selectedSegmentIndex = 0;
-        //----------Row 6----------//
-        self.resetPlatformButton = UIButton();
         //----------Row 7----------//
+        self.resetPlatformButton = UIButton();
+        //----------Row 8----------//
         self.logoutButton = UIButton();
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -96,7 +102,8 @@ class controlWindow_2: gui_init{
         //self.view.backgroundColor = UIColor.green
         
         //----------Title----------//
-        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.1 ,width:self.screenWidth*0.9,height:self.BlockHeight));
+        self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
+            self.screenHeight*0.115 ,width:self.screenWidth*0.9,height:self.BlockHeight));
         self.titleView.text = " Manual Settings "
         self.titleView.textAlignment = .center;
         self.titleView.isUserInteractionEnabled = false;
@@ -104,52 +111,53 @@ class controlWindow_2: gui_init{
 
         //----------12V Lights----------//
         //----------lightsView----------//
-        self.lightsView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.2 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.lightsView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
+            self.screenHeight*0.18 ,width:self.screenWidth*0.4,height:self.BlockHeight));
         self.lightsView.text = " 12V Lights: "
         self.lightsView.isUserInteractionEnabled = false;
         self.lightsView.layer.borderWidth = 0
         
         //----------lightSwitch----------//
-        self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.2 ,width:screenWidth*0.4,height:BlockHeight));
+        self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.18 ,width:screenWidth*0.4,height:BlockHeight));
         self.lightSwitch.tag = 0;
         self.lightSwitch.setOn(false, animated: true);
         self.lightSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //------------Water Pump-----------//
         //----------waterPumpView----------//
-        self.waterPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.26 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpView.text = " Water Pump: "
         self.waterPumpView.isUserInteractionEnabled = false;
         self.waterPumpView.layer.borderWidth = 0
         
         //----------waterPumpSwitch----------//
-        self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.26 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpSwitch.tag = 1;
         self.waterPumpSwitch.setOn(false, animated: true);
         self.waterPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         
         //-----------Drain Pump------------//
         //----------drainPumpView----------//
-        self.drainPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drainPumpView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.34 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpView.text = " Drain Pump: "
         self.drainPumpView.isUserInteractionEnabled = false;
         self.drainPumpView.layer.borderWidth = 0
         
         //----------drainPumpSwitch----------//
-        self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.34 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpSwitch.tag = 2;
         self.drainPumpSwitch.setOn(false, animated: true);
         self.drainPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //-----------water Purifier------------//
         //----------waterPurifierView----------//
-        self.waterPurifierView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPurifierView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: screenHeight*0.42 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPurifierView.text = " Water Purifier: "
         self.waterPurifierView.isUserInteractionEnabled = false;
         self.waterPurifierView.layer.borderWidth = 0
         
         //----------waterPurifierSwitch----------//
-        self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.42 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPurifierSwitch.tag = 3;
         self.waterPurifierSwitch.setOn(false, animated: true);
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
@@ -159,7 +167,7 @@ class controlWindow_2: gui_init{
         self.resetPlatformSegmentControl.frame = CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight);
         self.resetPlatformSegmentControl.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.resetPlatformSegmentControl.tag = 1;
-        //self.resetPlatformSegmentControl.setTitle(String("Raise Lights Platform"), for: .normal);
+        self.resetPlatformSegmentControl.layer.borderWidth = 1;
         self.resetPlatformSegmentControl.layer.cornerRadius = 5;
         self.resetPlatformSegmentControl.layer.borderColor = UIColor.black.cgColor;
         self.resetPlatformSegmentControl.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
@@ -177,7 +185,7 @@ class controlWindow_2: gui_init{
 
         //----------LogoutButton----------//
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
-            screenHeight*0.8 ,width:screenWidth*0.9,height:BlockHeight))
+            screenHeight*0.80 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.logoutButton.tag = 1;
         self.logoutButton.setTitle(String("Logout"), for: .normal);
@@ -201,10 +209,13 @@ class controlWindow_2: gui_init{
         self.view.addSubview(self.waterPurifierView);
         self.view.addSubview(self.waterPurifierSwitch);
         //----------Row 5----------//
-        self.view.addSubview(self.resetPlatformSegmentControl);
+
+        
         //----------Row 6----------//
-        self.view.addSubview(self.resetPlatformButton);
+        self.view.addSubview(self.resetPlatformSegmentControl);
         //----------Row 7----------//
+        self.view.addSubview(self.resetPlatformButton);
+        //----------Row 8----------//
         self.view.addSubview(self.logoutButton);
         
         //----------Possibly Helpful CMDS----------//
