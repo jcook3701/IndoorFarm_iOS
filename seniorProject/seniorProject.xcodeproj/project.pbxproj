@@ -22,6 +22,7 @@
 		8994929A20252C1800254715 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8994929920252C1800254715 /* DataService.swift */; };
 		89B167052026E999009A5428 /* emailLoginWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B167042026E999009A5428 /* emailLoginWindow.swift */; };
 		89B167072026E9B7009A5428 /* emailSetupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B167062026E9B7009A5428 /* emailSetupWindow.swift */; };
+		89F504DA20A3C8790057B5BF /* internal_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F504D920A3C8790057B5BF /* internal_model.swift */; };
 		FE1B0A40AEA1DAEB0B251A7F /* Pods_seniorProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0B1910AB60F4D3AF08969F /* Pods_seniorProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		8994929920252C1800254715 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = SOURCE_ROOT; };
 		89B167042026E999009A5428 /* emailLoginWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailLoginWindow.swift; sourceTree = "<group>"; };
 		89B167062026E9B7009A5428 /* emailSetupWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emailSetupWindow.swift; sourceTree = "<group>"; };
+		89F504D920A3C8790057B5BF /* internal_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = internal_model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				8994928E202307B900254715 /* gui_init.swift */,
 				8994928C2023069A00254715 /* mainMenuWindow.swift */,
 				89B167042026E999009A5428 /* emailLoginWindow.swift */,
+				89F504D920A3C8790057B5BF /* internal_model.swift */,
 				89B167062026E9B7009A5428 /* emailSetupWindow.swift */,
 				899492912023252F00254715 /* controlWindow_0.swift */,
 				896736A52029BCEA00EA20CE /* controlWindow_1.swift */,
@@ -311,6 +314,7 @@
 				896736A82029BD0F00EA20CE /* controlWindow2.swift in Sources */,
 				896736A22027C11E00EA20CE /* Util.swift in Sources */,
 				8994928D2023069A00254715 /* mainMenuWindow.swift in Sources */,
+				89F504DA20A3C8790057B5BF /* internal_model.swift in Sources */,
 				896736A62029BCEA00EA20CE /* controlWindow_1.swift in Sources */,
 				89B167072026E9B7009A5428 /* emailSetupWindow.swift in Sources */,
 				8994928F202307B900254715 /* gui_init.swift in Sources */,

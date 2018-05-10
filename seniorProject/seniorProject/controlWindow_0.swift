@@ -30,7 +30,6 @@ class controlWindow_0: gui_init{
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
     
-    
     //----------readDatabase Function----------//
     func readDatabase(){
         conditionRef.child("Temperature").observeSingleEvent(of: .value  , with: { (snapshot) in
@@ -147,7 +146,7 @@ class controlWindow_0: gui_init{
 
     
     @objc func readTimerCode(sender: Timer!){
-        print("timer code: ");
+        //print("timer code: ");
         readDatabase();
     }
     

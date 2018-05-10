@@ -44,32 +44,51 @@ class controlWindow_2: gui_init{
     var conditionRef: DatabaseReference!
     
     //----------readDatabase Variables----------//
+    var growLightValue: Bool = false;
+    var waterPumpValue: Bool = false;
+    var drainPumpValue: Bool = false;
+    var waterPurifierValue: Bool = false;
     
     //----------readDatabase Function----------//
     func readDatabase(){
+        conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in
+            let snapShotValue = snapshot.value as! Bool;
+            self.waterPumpValue = snapShotValue;
+        });
+        /*
         conditionRef.child("Grow_Light").observeSingleEvent(of: .value  , with: { (snapshot) in
             if let myValue = snapshot.value as? Int{
-                //self.temp_val.text =  String(myValue);
+                self.growLightValue = myValue==1 ? true : false;
+                //print("Grow_Light", myValue)
+                //print(self.growLightValue);
             }
         });
         
         conditionRef.child("Water_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
             if let myValue = snapshot.value as? Int{
-
+                self.waterPumpValue = myValue==1 ? true : false;
+                //print("Water_Pump", myValue)
+                //print(self.waterPumpValue);
             }
         });
         
         conditionRef.child("Drain_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
             if let myValue = snapshot.value as? Int{
-                
+                self.drainPumpValue = myValue==1 ? true : false;
+                //print("Drain_Pump", myValue)
+                //print(self.drainPumpValue);
+
             }
         });
         
         conditionRef.child("Water_Purifier").observeSingleEvent(of: .value  , with: { (snapshot) in
             if let myValue = snapshot.value as? Int{
-                
+                self.waterPurifierValue = myValue==1 ? true : false;
+                //print("Water_Purifer", myValue)
+                //print(self.waterPurifierValue);
             }
         });
+    */
     }
     
     override init() {
@@ -125,6 +144,23 @@ class controlWindow_2: gui_init{
         //----------Init Firebase Variables----------//
         conditionRef = Database.database().reference();
         
+        //----------Collect Switch Values from Firebase----------//
+        //self.readDatabase();
+        conditionRef.child("Water_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                self.waterPumpValue = myValue==1 ? true : false;
+                print("Water_Pump: ", self.waterPumpValue)
+                //print(self.waterPumpValue);
+            }
+        });
+        
+        /*
+        conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in
+            let snapShotValue = snapshot.value as! Bool;
+            self.waterPumpValue = snapShotValue;
+            print("WaterPumpValue: ", self.waterPumpValue);
+        });*/
+        
         //----------Settings----------//
         //self.view.backgroundColor = UIColor.green
         
@@ -147,7 +183,11 @@ class controlWindow_2: gui_init{
         //----------lightSwitch----------//
         self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.18 ,width:screenWidth*0.4,height:BlockHeight));
         self.lightSwitch.tag = 0;
-        self.lightSwitch.setOn(false, animated: true);
+        self.lightSwitch.setOn(self.growLightValue, animated: true);
+        //self.lightSwitch.setOn(false, animated: true);
+        print(self.growLightValue);
+
+
         self.lightSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //------------Water Pump-----------//
@@ -160,7 +200,11 @@ class controlWindow_2: gui_init{
         //----------waterPumpSwitch----------//
         self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.26 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpSwitch.tag = 1;
-        self.waterPumpSwitch.setOn(false, animated: true);
+        self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);
+        //self.waterPumpSwitch.setOn(false, animated: true);
+        print(self.waterPumpValue);
+
+        
         self.waterPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         
         //-----------Drain Pump------------//
@@ -173,7 +217,10 @@ class controlWindow_2: gui_init{
         //----------drainPumpSwitch----------//
         self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.34 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpSwitch.tag = 2;
-        self.drainPumpSwitch.setOn(false, animated: true);
+        self.drainPumpSwitch.setOn(self.drainPumpValue, animated: true);
+        //self.drainPumpSwitch.setOn(false, animated: true);
+        print(self.drainPumpValue);
+
         self.drainPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //-----------water Purifier------------//
@@ -186,7 +233,10 @@ class controlWindow_2: gui_init{
         //----------waterPurifierSwitch----------//
         self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.42 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPurifierSwitch.tag = 3;
-        self.waterPurifierSwitch.setOn(false, animated: true);
+        self.waterPurifierSwitch.setOn(self.waterPurifierValue, animated: true);
+        //self.waterPurifierSwitch.setOn(false, animated: true);
+        print(self.waterPurifierValue);
+
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //----------------Moving Platform----------------//

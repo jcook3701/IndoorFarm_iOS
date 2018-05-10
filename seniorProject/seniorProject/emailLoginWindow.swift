@@ -146,7 +146,7 @@ class emailLoginWindow: gui_init{
     @objc func buttonAction(sender: UIButton!){
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
-        if(tag == 0){//Login
+        if(tag == 0){//Login Button
             
             guard let email = usernameView.text, !email.isEmpty else {
                 print("email is empty");
@@ -200,12 +200,12 @@ class emailLoginWindow: gui_init{
             
         }
         if(tag == 1)
-        {
+        {//
             
 
         }
         if(tag == 2)
-        {
+        {//Register Button
             let controller = emailSetupWindow();
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
