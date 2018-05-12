@@ -44,10 +44,10 @@ class controlWindow_2: gui_init{
     var conditionRef: DatabaseReference!
     
     //----------readDatabase Variables----------//
-    var growLightValue: Bool = false;
-    var waterPumpValue: Bool = false;
-    var drainPumpValue: Bool = false;
-    var waterPurifierValue: Bool = false;
+    var growLightValue: Bool!;
+    var waterPumpValue: Bool!;
+    var drainPumpValue: Bool!;
+    var waterPurifierValue: Bool!;
     
     //----------readDatabase Function----------//
     func readDatabase(){
@@ -91,6 +91,19 @@ class controlWindow_2: gui_init{
     */
     }
     
+    //Draws a line
+    func addLine(fromPoint start: CGPoint, toPoint end:CGPoint) {
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.gray.cgColor
+        line.lineWidth = 1
+        line.lineJoin = kCALineJoinRound
+        self.view.layer.addSublayer(line)
+    }
+    
     override init() {
         super.init();
     }
@@ -130,9 +143,7 @@ class controlWindow_2: gui_init{
         //----------Row 5----------//
         self.platformTitleView = UITextField();
         //----------Row 6----------//
-        let resetPlatformitems = ["Mode 0", "Mode 1"];
-        self.resetPlatformSegmentControl = UISegmentedControl(items: resetPlatformitems);
-        self.resetPlatformSegmentControl.selectedSegmentIndex = 0;
+        self.resetPlatformSegmentControl = UISegmentedControl();
         //----------Row 7----------//
         self.resetPlatformButton = UIButton();
         //----------Row 8----------//
@@ -142,17 +153,20 @@ class controlWindow_2: gui_init{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         //----------Init Firebase Variables----------//
-        conditionRef = Database.database().reference();
+        self.conditionRef = Database.database().reference();
         
         //----------Collect Switch Values from Firebase----------//
         //self.readDatabase();
-        conditionRef.child("Water_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
+        
+        /*
+        self.conditionRef.child("Water_Pump").observeSingleEvent(of: .value  , with: { (snapshot) in
             if let myValue = snapshot.value as? Int{
                 self.waterPumpValue = myValue==1 ? true : false;
                 print("Water_Pump: ", self.waterPumpValue)
                 //print(self.waterPumpValue);
             }
         });
+        */
         
         /*
         conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in
@@ -171,6 +185,9 @@ class controlWindow_2: gui_init{
         self.titleView.textAlignment = .center;
         self.titleView.isUserInteractionEnabled = false;
         self.titleView.layer.borderWidth = 0;
+        
+        //----------Line----------//
+        addLine(fromPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.80), y: self.screenHeight-(self.screenHeight*0.83)), toPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.20), y: self.screenHeight-(self.screenHeight*0.83)));
 
         //----------12V Lights----------//
         //----------lightsView----------//
@@ -181,7 +198,7 @@ class controlWindow_2: gui_init{
         self.lightsView.layer.borderWidth = 0
         
         //----------lightSwitch----------//
-        self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.18 ,width:screenWidth*0.4,height:BlockHeight));
+        self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.19 ,width:screenWidth*0.4,height:BlockHeight));
         self.lightSwitch.tag = 0;
         self.lightSwitch.setOn(self.growLightValue, animated: true);
         //self.lightSwitch.setOn(false, animated: true);
@@ -198,7 +215,7 @@ class controlWindow_2: gui_init{
         self.waterPumpView.layer.borderWidth = 0
         
         //----------waterPumpSwitch----------//
-        self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.26 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.27 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpSwitch.tag = 1;
         self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);
         //self.waterPumpSwitch.setOn(false, animated: true);
@@ -215,7 +232,7 @@ class controlWindow_2: gui_init{
         self.drainPumpView.layer.borderWidth = 0
         
         //----------drainPumpSwitch----------//
-        self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.34 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.35 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpSwitch.tag = 2;
         self.drainPumpSwitch.setOn(self.drainPumpValue, animated: true);
         //self.drainPumpSwitch.setOn(false, animated: true);
@@ -231,7 +248,7 @@ class controlWindow_2: gui_init{
         self.waterPurifierView.layer.borderWidth = 0
         
         //----------waterPurifierSwitch----------//
-        self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.42 ,width:screenWidth*0.4,height:BlockHeight));
+        self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.43 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPurifierSwitch.tag = 3;
         self.waterPurifierSwitch.setOn(self.waterPurifierValue, animated: true);
         //self.waterPurifierSwitch.setOn(false, animated: true);
@@ -239,6 +256,7 @@ class controlWindow_2: gui_init{
 
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
+        
         //----------------Moving Platform----------------//
         //----------platformTitleView----------//
         self.platformTitleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
@@ -248,15 +266,21 @@ class controlWindow_2: gui_init{
         self.platformTitleView.isUserInteractionEnabled = false;
         self.platformTitleView.layer.borderWidth = 0;
         
+        //----------Line----------//
+        addLine(fromPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.80), y: self.screenHeight-(self.screenHeight*0.43)), toPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.20), y: self.screenHeight-(self.screenHeight*0.43)));
+        
         //----------resetPlatformSegmentControl----------//
+        let resetPlatformitems = ["Mode 0", "Mode 1"];
+        self.resetPlatformSegmentControl = UISegmentedControl(items: resetPlatformitems);
         self.resetPlatformSegmentControl.frame = CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight);
-        self.resetPlatformSegmentControl.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
+        self.resetPlatformSegmentControl.addTarget(self.view.inputViewController, action: #selector(segmentedControlAction), for: .valueChanged);
         self.resetPlatformSegmentControl.tag = 1;
         self.resetPlatformSegmentControl.layer.borderWidth = 1;
         self.resetPlatformSegmentControl.layer.cornerRadius = 5;
         self.resetPlatformSegmentControl.layer.borderColor = UIColor.black.cgColor;
         self.resetPlatformSegmentControl.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
         self.resetPlatformSegmentControl.tintColor = UIColor.white;
+        self.resetPlatformSegmentControl.selectedSegmentIndex = 0;
         
         //----------resetPlatformButton----------//
         self.resetPlatformButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
@@ -272,7 +296,7 @@ class controlWindow_2: gui_init{
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
             screenHeight*0.80 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        self.logoutButton.tag = 1;
+        //self.logoutButton.tag = 1;
         self.logoutButton.setTitle(String("Logout"), for: .normal);
         self.logoutButton.layer.cornerRadius = 5;
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;
@@ -348,6 +372,22 @@ class controlWindow_2: gui_init{
         }
     }
     
+    @objc func segmentedControlAction(sender: UISegmentedControl) {
+        print("Change color handler is called.")
+        print("Changing Color to ")
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.view.backgroundColor = UIColor.green;
+            print("Green")
+        case 1:
+            self.view.backgroundColor = UIColor.blue;
+            print("Blue")
+        default:
+            self.view.backgroundColor = UIColor.purple;
+            print("Purple")
+        }
+    }
+    
     @objc func buttonAction(sender: UIButton!){
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
@@ -406,9 +446,9 @@ class controlWindow_2: gui_init{
         // 2
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         // 3
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
         // 4
-        let changeInHeight = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
+        _ = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
         //5
         //UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
         //   self.bottomConstraint.constant += changeInHeight

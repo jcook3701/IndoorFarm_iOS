@@ -23,23 +23,37 @@ class controlWindow_1: gui_init{
     var titleView: UITextField!;
     var planNameView: UITextField!;
     var plantTraitView: UITextField!;
-    var growLightRunTimeView: UITextField!;
-    var growLightSleepTimeView: UITextField!;
-    var waterPumpRunTimeView: UITextField!;
-    var waterPumpSleepTimeView: UITextField!;
+    //var growLightRunTimeView: UITextField!;
+    //var growLightSleepTimeView: UITextField!;
+    //var waterPumpRunTimeView: UITextField!;
+    //var waterPumpSleepTimeView: UITextField!;
     var createSettingsButton: UIButton!;
     var deleteSettingsButton: UIButton!;
     var startButtton: UIButton!;
     
-    //----------DropDown Variables----------//
-    var drop: UIDropDown!
-    private var dropCurrentVals: (value:String, position:Int)?
-    private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
-    public var variableNames = Array<String>();                     //For drop down box    }
+    //----------DropDown Objects & Variables----------//
+    //----------plantDropdown----------//
     
+    //private var plantDropVariableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
+    //public var plantDropVariableNames = Array<String>();                     //For drop down box
+    
+    var plantDropdown: UIDropDown!
+    private var plantDropdownCurrentVals: (value:String, position:Int)?
+    
+    //----------growLightMaxSleepDropdown----------//
+    var growLightMaxSleepDropdown: UIDropDown!;
+    private var growLightMaxSleepDropdownCurrentVals: (value:String, position:Int)?;
+
+    //----------growLightMaxTempDropdown----------//
+    var growLightMaxTempDropdown: UIDropDown!;
+    private var growLightMaxTempDropdownCurrentVals: (value:String, position:Int)?;
+
+    //----------growLightMaxTimerDropdown----------//
+    var growLightMaxTimerDropdown: UIDropDown!;
+    private var growLightMaxTimerDropdownCurrentVals: (value:String, position:Int)?;
+
     //----------Firebase Variables----------//
     var conditionRef: DatabaseReference!
-    
     
     //----------Keyboard Hider----------//
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -49,6 +63,19 @@ class controlWindow_1: gui_init{
         else{
             self.view.endEditing(true);
         }
+    }
+    
+    //Draws a line
+    func addLine(fromPoint start: CGPoint, toPoint end:CGPoint) {
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.gray.cgColor
+        line.lineWidth = 1
+        line.lineJoin = kCALineJoinRound
+        self.view.layer.addSublayer(line)
     }
     
     override init() {
@@ -77,10 +104,10 @@ class controlWindow_1: gui_init{
         self.titleView = UITextField();
         self.planNameView = UITextField();
         self.plantTraitView = UITextField();
-        self.growLightRunTimeView = UITextField();
-        self.growLightSleepTimeView = UITextField();
-        self.waterPumpRunTimeView = UITextField();
-        self.waterPumpSleepTimeView = UITextField();
+        //self.growLightRunTimeView = UITextField();
+        //self.growLightSleepTimeView = UITextField();
+        //self.waterPumpRunTimeView = UITextField();
+        //self.waterPumpSleepTimeView = UITextField();
         self.createSettingsButton = UIButton();
         self.deleteSettingsButton = UIButton();
         self.startButtton = UIButton();
@@ -102,15 +129,18 @@ class controlWindow_1: gui_init{
         self.titleView.isUserInteractionEnabled = false;
         self.titleView.layer.borderWidth = 0;
         
-        //----------Drop Down Menu----------//
-        self.drop = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
+        //----------Line----------//
+        addLine(fromPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.80), y: self.screenHeight-(self.screenHeight*0.83)), toPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.20), y: self.screenHeight-(self.screenHeight*0.83)));
+        
+        //----------plantDropdown----------//
+        self.plantDropdown = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
             self.screenHeight*0.2, width: self.screenWidth*0.9, height: 30));
-        self.drop.backgroundColor = UIColor.white;
-        self.drop.placeholder = "Plant Select"
-        self.drop.options = ["Mexico", "USA", "England", "France", "Germany", "Spain", "Italy", "Canada"]
-        self.drop.didSelect{(option, index) in
+        self.plantDropdown.backgroundColor = UIColor.white;
+        self.plantDropdown.placeholder = "Plant Select"
+        self.plantDropdown.options = ["Tomatos", "Beans", " Broccoli", " Cabbage", "Chives", "Spinach", "Carrots", "Cucumber"]
+        self.plantDropdown.didSelect{(option, index) in
             //print("String: " + (option) + " number: " + String(index));
-            self.dropCurrentVals = (option, index);
+            self.plantDropdownCurrentVals = (option, index);
         }
         //self.drop.options = self.variableNames;
 
@@ -127,11 +157,50 @@ class controlWindow_1: gui_init{
         self.plantTraitView.layer.borderWidth = 1
         self.plantTraitView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         
+        //----------growLightMaxTimerDropdown----------//
+        self.growLightMaxTimerDropdown = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
+            self.screenHeight*0.4, width: self.screenWidth*0.9, height: 30));
+        self.growLightMaxTimerDropdown.backgroundColor = UIColor.white;
+        self.growLightMaxTimerDropdown.placeholder = "Grow Light: Power On Cycle"
+        self.growLightMaxTimerDropdown.options = ["Always On", "30 min", "1 hour", " 1.5 hours", " 2 hours", "2.5 hours", "3 hours", "3.5 hours", "4 hours", "4.5 hours", "5 hours", "5.5 hours", "6 hours", "6.5 hours", "7 hours", "7.5 hours", "8 hours", "8.5 hours", "9 hours", "9.5 hours", "10 hours", "10.5 hours", "11 hours", "11.5 hours", "12 hours"];
+        self.growLightMaxTimerDropdown.didSelect{(option, index) in
+            //print("String: " + (option) + " number: " + String(index));
+            self.growLightMaxTimerDropdownCurrentVals = (option, index);
+        }
+        //self.drop.options = self.variableNames;
+        
+        //----------growLightMaxSleepDropdown----------//
+        self.growLightMaxSleepDropdown = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
+            self.screenHeight*0.5, width: self.screenWidth*0.9, height: 30));
+        self.growLightMaxSleepDropdown.backgroundColor = UIColor.white;
+        self.growLightMaxSleepDropdown.placeholder = "Grow Light: Power Off Cycle"
+        self.growLightMaxSleepDropdown.options = ["Always On", "30 min", "1 hour", " 1.5 hours", " 2 hours", "2.5 hours", "3 hours", "3.5 hours", "4 hours", "4.5 hours", "5 hours", "5.5 hours", "6 hours", "6.5 hours", "7 hours", "7.5 hours", "8 hours", "8.5 hours", "9 hours", "9.5 hours", "10 hours", "10.5 hours", "11 hours", "11.5 hours", "12 hours"];
+        self.growLightMaxSleepDropdown.didSelect{(option, index) in
+            //print("String: " + (option) + " number: " + String(index));
+            self.growLightMaxSleepDropdownCurrentVals = (option, index);
+        }
+        //self.drop.options = self.variableNames;
+        
+        //----------growLightMaxTempDropdown----------//
+        self.growLightMaxTempDropdown = UIDropDown(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.95), y:
+            self.screenHeight*0.6, width: self.screenWidth*0.9, height: 30));
+        self.growLightMaxTempDropdown.backgroundColor = UIColor.white;
+        self.growLightMaxTempDropdown.placeholder = "Grow Light: Max Temperature"
+        self.growLightMaxTempDropdown.options = ["20 degrees", "40 degrees", " 60 degrees", "80 degrees", "100 degrees", "120 degrees", "140 degrees", "160 degrees", "180 degrees", "200 degrees", "220 degrees", "240 degrees", "260 degrees", "280 degrees", "300 degrees"];
+        self.growLightMaxTempDropdown.didSelect{(option, index) in
+            //print("String: " + (option) + " number: " + String(index));
+            self.growLightMaxTempDropdownCurrentVals = (option, index);
+        }
+        //self.drop.options = self.variableNames;
+        
+        
         //----------growLightRunTimeView----------//
+        
+        /*
         self.growLightRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.43,height:self.BlockHeight));
         self.growLightRunTimeView.placeholder = " Grow Light Run Time: "
         self.growLightRunTimeView.layer.borderWidth = 1
-        self.growLightRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.growLightRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);   
         
         //----------growLightSleepTimeView----------//
         self.growLightSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.5 ,width:self.screenWidth*0.43,height:BlockHeight));
@@ -150,7 +219,7 @@ class controlWindow_1: gui_init{
         self.waterPumpSleepTimeView.placeholder = " Grow Light Sleep Time: "
         self.waterPumpSleepTimeView.layer.borderWidth = 1
         self.waterPumpSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        
+        */
         //----------createSettingsButton----------//
         self.createSettingsButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
             screenHeight*0.7 ,width:self.screenWidth*0.43,height:BlockHeight))
@@ -182,22 +251,30 @@ class controlWindow_1: gui_init{
         self.startButtton.layer.cornerRadius = 5;
         self.startButtton.layer.borderColor = UIColor.black.cgColor;
         //self.startButtton.layer.borderWidth = 1
-        self.startButtton.backgroundColor = UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0);
+        self.startButtton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
 
         //----------Initialize GUI objects by adding them to the subview----------//
         self.view.addSubview(self.titleView);
         self.view.addSubview(self.planNameView);
         self.view.addSubview(self.plantTraitView);
-        self.view.addSubview(self.growLightRunTimeView);
-        self.view.addSubview(self.growLightSleepTimeView);
-        self.view.addSubview(self.waterPumpRunTimeView);
-        self.view.addSubview(self.waterPumpSleepTimeView);
         view.addSubview(self.createSettingsButton);
         view.addSubview(self.deleteSettingsButton);
         view.addSubview(self.startButtton);
 
         //----------DropDown GUI items need to go last so that you can't see though their dropDown menu----------//
-        self.view.addSubview(self.drop);
+        self.view.addSubview(self.growLightMaxTempDropdown);
+        self.view.addSubview(self.growLightMaxSleepDropdown);
+        self.view.addSubview(self.growLightMaxTimerDropdown);
+        self.view.addSubview(self.plantDropdown);
+
+
+        
+        //----------growLightMaxTimerDropdown----------//
+        
+        //self.view.addSubview(self.growLightRunTimeView);
+        //self.view.addSubview(self.growLightSleepTimeView);
+        //self.view.addSubview(self.waterPumpRunTimeView);
+        //self.view.addSubview(self.waterPumpSleepTimeView);
 
         
         //----------Possibly Helpful CMDS----------//
@@ -255,9 +332,9 @@ class controlWindow_1: gui_init{
         // 2
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         // 3
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
         // 4
-        let changeInHeight = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
+        _ = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
         //5
         //UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
         //   self.bottomConstraint.constant += changeInHeight

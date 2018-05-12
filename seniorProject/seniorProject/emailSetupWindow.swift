@@ -14,6 +14,10 @@ import Firebase
 import FirebaseAuthUI
 
 class emailSetupWindow: gui_init{
+    
+    //----------Data Variables----------//
+    private var dataModel: DataModel!;
+    
     //----------GUI Variables----------//
     var usernameView: UITextField!;
     var passwordView0: UITextField!;
@@ -144,7 +148,11 @@ class emailSetupWindow: gui_init{
         //controller.title = "Control"
         //navigationController?.pushViewController(controller, animated: true)
         //----------Setup TabBarController----------//
-        Util.setupMainWindow(nav: self.navigationController!)
+        self.dataModel.readDatabase();
+        Util.setupMainWindow(nav: self.navigationController!, data: self.dataModel!)
+        //Util.setupMainWindow(nav: self.navigationController!);
+        
+        
         /*
         let tabBarController = UITabBarController()
         let controlWindow0 = controlWindow_0()

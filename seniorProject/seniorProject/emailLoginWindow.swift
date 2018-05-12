@@ -16,6 +16,9 @@ import FirebaseAuthUI
 class emailLoginWindow: gui_init{
 
     
+    //----------Data Variables----------//
+    private var dataModel: DataModel!;
+    
     //----------GUI Variables----------//
     var usernameView: UITextField!;
     var passwordView: UITextField!;
@@ -61,6 +64,9 @@ class emailLoginWindow: gui_init{
         self.BlockWidth = screenWidth/NumberOfBlocksWide;          //Block Width: (Screen Width/
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
+        //----------Data Variables----------//
+        self.dataModel = DataModel();
+        
         //----------Init GUI Variables----------//
         self.usernameView = UITextField();
         self.passwordView = UITextField();
@@ -72,8 +78,6 @@ class emailLoginWindow: gui_init{
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-    
     
         //----------Navigation Bar----------//
     
@@ -171,7 +175,13 @@ class emailLoginWindow: gui_init{
                     //self.present(controller, animated: true, completion: nil);
                     
                     //----------Setup TabBarController----------//
-                    Util.setupMainWindow(nav: self.navigationController!)
+                    
+                    self.dataModel.readDatabase();
+                    Util.setupMainWindow(nav: self.navigationController!, data: self.dataModel!)
+                    
+                    
+                    //----------Read Values from firebase----------//
+                    
                     /*
                     let tabBarController = UITabBarController()
                     let controlWindow0 = controlWindow_0()
@@ -260,9 +270,9 @@ class emailLoginWindow: gui_init{
         // 2
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         // 3
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
         // 4
-        let changeInHeight = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
+        _ = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
         //5
         //UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
          //   self.bottomConstraint.constant += changeInHeight

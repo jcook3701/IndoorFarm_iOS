@@ -51,6 +51,19 @@ class controlWindow_0: gui_init{
         });
     }
     
+    //Draws a line
+    func addLine(fromPoint start: CGPoint, toPoint end:CGPoint) {
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.gray.cgColor
+        line.lineWidth = 1
+        line.lineJoin = kCALineJoinRound
+        self.view.layer.addSublayer(line)
+    }
+    
     override init() {
         super.init();
     }
@@ -105,6 +118,9 @@ class controlWindow_0: gui_init{
         self.titleView.isUserInteractionEnabled = false;
         self.titleView.layer.borderWidth = 0;
         self.view.addSubview(self.titleView);
+        
+        //----------Line----------//
+        addLine(fromPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.80), y: self.screenHeight-(self.screenHeight*0.83)), toPoint: CGPoint(x: self.screenWidth-(self.screenWidth*0.20), y: self.screenHeight-(self.screenHeight*0.83)));
         
         //----------Temperature Value----------//
         
@@ -213,9 +229,9 @@ class controlWindow_0: gui_init{
         // 2
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         // 3
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
         // 4
-        let changeInHeight = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
+        _ = ((keyboardFrame.height) + 40) * (show ? 1 : -1)
         //5
         //UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
         //   self.bottomConstraint.constant += changeInHeight

@@ -23,6 +23,9 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
+    //----------Data Variables----------//
+    private var dataModel: DataModel!;
+    
     var window: UIWindow?
     var nav1: UINavigationController?
     //var ref: DatabaseReference!
@@ -63,7 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             //controller.title = "Control"
             
             //----------Setup TabBarController----------//
-            Util.setupMainWindow(nav: self.nav1!)
+            self.dataModel.readDatabase();
+            Util.setupMainWindow(nav: self.nav1!, data: self.dataModel!)
+            //Util.setupMainWindow(nav: self.nav1!)
             //self.window!.rootViewController = self.nav1
             //self.window!.makeKeyAndVisible()
         }
