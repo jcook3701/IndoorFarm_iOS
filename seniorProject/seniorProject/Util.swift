@@ -11,11 +11,12 @@ import UIKit
 
 
 class Util {
-    
-    class func setupMainWindow(nav: UINavigationController, data: DataModel){
+    //-----------------------Initializes tabBarWindow_farm_ios-----------------------//
+    class func setupTabBarController(nav: UINavigationController, data: DataModel) -> UITabBarController{
+       
         //----------Collect Values to intialize windows----------//
+        //This should be done before this to insure that the collection of values from Firebase has time before the screen's are initilized.
         
-        //self.dataModel.readDatabase();
         //----------Setup TabBarController----------//
         let tabBarController = UITabBarController();
         
@@ -24,8 +25,7 @@ class Util {
         let controlWindow2 = controlWindow_2();
         let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ];
         
-        //        self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);
-
+        /*
         print("Grow Light: ", data.get_grow_light());
         print("Water Pump: ", data.get_water_pump());
         print("Drain Pump: ", data.get_drain_pump());
@@ -35,18 +35,15 @@ class Util {
         print("Water Pump: ", (data.get_water_pump()==1 ? true : false));
         print("Drain Pump: ", (data.get_drain_pump()==1 ? true : false));
         print("Water Purifier: ", (data.get_water_purifier()==1 ? true : false));
+        */
         
+        //----------Data Passed to Set Intial Values of Switches for GrowLight, WaterPump, Drain Pump, & WaterPurifier----------//
         controlWindow2.growLightValue = (data.get_grow_light()==1 ? true : false);
         controlWindow2.waterPumpValue = (data.get_water_pump()==1 ? true : false);
         controlWindow2.drainPumpValue = (data.get_drain_pump()==1 ? true : false);
         controlWindow2.waterPurifierValue = (data.get_water_purifier()==1 ? true : false);
         
-        //controlWindow2.lightSwitch!.setOn((data.get_grow_light()==1 ? true : false), animated: true);
-        //controlWindow2.waterPumpSwitch!.setOn((data.get_water_pump()==1 ? true : false), animated: true);
-        //controlWindow2.drainPumpSwitch!.setOn((data.get_drain_pump()==1 ? true : false), animated: true);
-        //controlWindow2.waterPurifierSwitch!.setOn((data.get_drain_pump()==1 ? true : false), animated: true);
-
-        
+        //----------TabBarItems----------//
         controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0);
         controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1);
         controlWindow2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2);
@@ -57,8 +54,8 @@ class Util {
         tabBarController.title = "Indoor Automated Farm";
         tabBarController.navigationItem.hidesBackButton = true;
         tabBarController.selectedIndex = 1;
-        nav.pushViewController(tabBarController, animated: true);
-        //self.nav1?.pushViewController(tabBarController, animated: true)
+        
+        return tabBarController;
     }
 }
 

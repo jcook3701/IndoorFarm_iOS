@@ -19,7 +19,7 @@ class DataModel{
 
     //-----Firebase Variables-----//
     //-----All Values-----//
-    private var firebase_values: NSDictionary?; 
+    private var firebase_values: NSDictionary?;
     //-----Always Read-----//
     private var temperature: Double = 0;
     private var water_level: Int = 0;
@@ -169,12 +169,12 @@ class DataModel{
     }
     
     //-----Collect Values from Firebase-----//
-    func readDatabase() -> NSDictionary {
+    func readDatabase() {
         
         conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary;
+            self.firebase_values = value;
             
-            /*
             let grow_light_value = value?["Grow_Light"] as? Int;
             let water_pump_value = value?["Water_Pump"] as? Int;
             let drain_pump_value = value?["Drain_Pump"] as? Int;
@@ -189,10 +189,8 @@ class DataModel{
             print("Water Pump: ", self.water_pump);
             print("Drain Pump: ", self.drain_pump);
             print("Water Purifier: ", self.water_purifier);
-            */
+            
         })
-        
-        
         
         /*
         conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in

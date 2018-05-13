@@ -43,6 +43,8 @@ class controlWindow_0: gui_init{
                 //print(myValue);
                 if(myValue == 1){
                     self.water_val.text =  "High";
+                    self.conditionRef.child("Water_Pump").setValue(1);
+                    //self.conditionRef.child("Water_Pump").setValue(<#T##value: Any?##Any?#>, andPriority: <#T##Any?#>)
                 }
                 else{
                     self.water_val.text =  "Resevoir Empty";

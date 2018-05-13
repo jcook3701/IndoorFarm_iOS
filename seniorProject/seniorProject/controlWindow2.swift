@@ -274,7 +274,7 @@ class controlWindow_2: gui_init{
         self.resetPlatformSegmentControl = UISegmentedControl(items: resetPlatformitems);
         self.resetPlatformSegmentControl.frame = CGRect(x: screenWidth-(screenWidth*0.95) ,y: screenHeight*0.6 ,width:screenWidth*0.9,height:BlockHeight);
         self.resetPlatformSegmentControl.addTarget(self.view.inputViewController, action: #selector(segmentedControlAction), for: .valueChanged);
-        self.resetPlatformSegmentControl.tag = 1;
+        //self.resetPlatformSegmentControl.tag = 1;
         self.resetPlatformSegmentControl.layer.borderWidth = 1;
         self.resetPlatformSegmentControl.layer.cornerRadius = 5;
         self.resetPlatformSegmentControl.layer.borderColor = UIColor.black.cgColor;
@@ -296,7 +296,7 @@ class controlWindow_2: gui_init{
         self.logoutButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
             screenHeight*0.80 ,width:screenWidth*0.9,height:BlockHeight))
         self.logoutButton.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
-        //self.logoutButton.tag = 1;
+        self.logoutButton.tag = 1;
         self.logoutButton.setTitle(String("Logout"), for: .normal);
         self.logoutButton.layer.cornerRadius = 5;
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;

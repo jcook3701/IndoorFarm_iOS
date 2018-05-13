@@ -11,9 +11,9 @@ import UIKit
 
 //-----Firebase Imports -----//
 import Firebase
-import FirebaseAuthUI
-import FirebaseGoogleAuthUI
-import FirebaseFacebookAuthUI
+//import FirebaseAuthUI
+//import FirebaseGoogleAuthUI
+//import FirebaseFacebookAuthUI
 //-----Facebook Imports -----//
 import FBSDKCoreKit
 import FBSDKShareKit
@@ -91,7 +91,8 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         //var count = 0;
         //----------Firebase----------//
         //----------Google Login----------//
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self;
+        //GIDSignIn.sharedInstance().signIn();      Silent Signin if user has already signed in with googled. 
         self.signInButton0 = GIDSignInButton();
         //self.signInButton0.frame.size = CGSize(width: self.screenWidth*0.6, height: screenHeight/22);
         self.signInButton0.style = GIDSignInButtonStyle.wide    // => 312x48

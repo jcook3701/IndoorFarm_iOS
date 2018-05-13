@@ -11,13 +11,15 @@ import UIKit
 
 //-----Firebase Imports -----//
 import Firebase
-import FirebaseAuthUI
+//import FirebaseAuthUI
 
 class emailLoginWindow: gui_init{
 
-    
     //----------Data Variables----------//
     private var dataModel: DataModel!;
+    
+    //----------Window/Navigation Variables----------//
+    var tabBarController_farm_ios: UITabBarController?
     
     //----------GUI Variables----------//
     var usernameView: UITextField!;
@@ -147,6 +149,8 @@ class emailLoginWindow: gui_init{
 
     }
     
+    //----------Button Actions----------//
+    //----------"Login", "Forgot Password", "Register"----------//
     @objc func buttonAction(sender: UIButton!){
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
@@ -166,51 +170,21 @@ class emailLoginWindow: gui_init{
                 if error == nil{
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
-                    //----------Mail Login Screen Init----------//
-                    //let controller = controlWindow_0();
-                    //controller.view.backgroundColor = UIColor.white;
-                    //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-                    //controller.title = "Control"
-                    //self.navigationController?.pushViewController(controller, animated: true)
-                    //self.present(controller, animated: true, completion: nil);
-                    
+
                     //----------Setup TabBarController----------//
-                    
                     self.dataModel.readDatabase();
-                    Util.setupMainWindow(nav: self.navigationController!, data: self.dataModel!)
+                    //Util.setupMainWindow(nav: self.navigationController!, data: self.dataModel!)
                     
-                    
-                    //----------Read Values from firebase----------//
-                    
-                    /*
-                    let tabBarController = UITabBarController()
-                    let controlWindow0 = controlWindow_0()
-                    controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
-                    let controlWindow1 = controlWindow_1()
-                    controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-                    let controlWindow2 = controlWindow_2()
-                    controlWindow2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
-                    let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ]
-                    tabBarController.viewControllers = viewControllerList
-                    tabBarController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-                    tabBarController.view.backgroundColor = UIColor.white;
-                    tabBarController.title = "Indoor Farm"
-                    tabBarController.navigationItem.hidesBackButton = true;
-                    self.navigationController?.pushViewController(tabBarController, animated: true)
-                    */
-                    
-                    
+                    self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
+                    self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
                 }
                 else{
                     print("error")
                 }
-                
             }
-            
-            
         }
         if(tag == 1)
-        {//
+        {//Forgot Password Button
             
 
         }
@@ -223,17 +197,7 @@ class emailLoginWindow: gui_init{
             navigationController?.pushViewController(controller, animated: true)
             //present(controller, animated: true, completion: nil);
         }
-        if(tag == 4)
-        {
-            
-        }
     }
-    
-    //@IBAction func backAction(_ sender: UIBarButtonItem) {
-    //    print("backAction")
-    //    dismiss(animated: true, completion: nil);
-        //let _ = self.navigationController?.popViewController(animated: true)
-    //}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();

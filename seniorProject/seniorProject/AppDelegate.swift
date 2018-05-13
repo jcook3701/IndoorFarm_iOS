@@ -11,9 +11,9 @@ import UIKit
 //-----Facebook Imports -----//
 import Firebase
 import FirebaseDatabase
-import FirebaseAuthUI
-import FirebaseGoogleAuthUI
-import FirebaseFacebookAuthUI
+//import FirebaseAuthUI
+//import FirebaseGoogleAuthUI
+//import FirebaseFacebookAuthUI
 //-----Google Imports -----//
 import GoogleSignIn
 
@@ -26,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     //----------Data Variables----------//
     private var dataModel: DataModel!;
     
+    
+    //----------Window/Navigation Variables----------//
     var window: UIWindow?
-    var nav1: UINavigationController?
+    var navController_farm_ios: UINavigationController?
+    var tabBarController_farm_ios: UITabBarController?
     //var ref: DatabaseReference!
     
     @available(iOS 9.0, *)
@@ -39,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        //guard (GIDSignIn.sharedInstance().uiDelegate as? controlWindow_0 else {return};
+        
         if let error = error {
             print(error.localizedDescription)
             return
@@ -51,26 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
         print(credential)
+        //Auth.auth().signInAndRetrieveData(with: credential, completion: AuthResultCallback = nil);
+
         
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
+         
             // User is signed in
             print("User is signed in")
-            //----------Mail Login Screen Init----------//
-            //let controller = controlWindow_0();
-            //controller.view.backgroundColor = UIColor.white;
-            //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            //controller.title = "Control"
-            
+
             //----------Setup TabBarController----------//
+            //----------Goes to controlWindow_1---------//
             self.dataModel.readDatabase();
-            Util.setupMainWindow(nav: self.nav1!, data: self.dataModel!)
-            //Util.setupMainWindow(nav: self.nav1!)
-            //self.window!.rootViewController = self.nav1
-            //self.window!.makeKeyAndVisible()
+            self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navController_farm_ios!, data: self.dataModel);
+            self.navController_farm_ios!.pushViewController(self.tabBarController_farm_ios!, animated: true);
+
         }
     }
     
@@ -93,34 +96,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //--------Firebase--------//
         // Use Firebase library to configure APIs'
-        
-
         FirebaseApp.configure()
+        
         //--------Google-login--------//
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID;
+        GIDSignIn.sharedInstance().delegate = self;
  
         //ref = Database.database().reference();
         //--------Firebase--------//
         //myLoginWindow
         
         //--------Screen Launch--------//
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        nav1 = UINavigationController()
-        let mainView = mainMenuWindow() //ViewController = Name of your controller
-        //nav1?.viewControllers = [mainView]
-        nav1?.pushViewController(mainView, animated: true)
-        self.window!.rootViewController = nav1
-        self.window?.makeKeyAndVisible()
-        
-        /*
-        let login = mainMenuWindow();
         self.window = UIWindow(frame: UIScreen.main.bounds);
-        self.window!.rootViewController = login;
+        self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0);
+        self.navController_farm_ios = UINavigationController();
+        let mainView = mainMenuWindow(); //ViewController = Name of your controller
+        //nav1?.viewControllers = [mainView]
+        self.navController_farm_ios?.pushViewController(mainView, animated: true);
+        self.window!.rootViewController = self.navController_farm_ios;
         self.window?.makeKeyAndVisible();
-        self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        */
+        
+       
         // Override point for customization after application launch.
         return true
     }
