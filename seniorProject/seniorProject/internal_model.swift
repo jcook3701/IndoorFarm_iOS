@@ -169,7 +169,7 @@ class DataModel{
     }
     
     //-----Collect Values from Firebase-----//
-    func readDatabase() {
+    func readDatabase(completion: @escaping (Bool) -> ()) {
         
         conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary;
@@ -189,7 +189,10 @@ class DataModel{
             print("Water Pump: ", self.water_pump);
             print("Drain Pump: ", self.drain_pump);
             print("Water Purifier: ", self.water_purifier);
+            completion(true);
             
+        }, withCancel : { error in
+            print("with Cancel error");
         })
         
         /*

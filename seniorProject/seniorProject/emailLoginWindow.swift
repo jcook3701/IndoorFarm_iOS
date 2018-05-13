@@ -16,7 +16,7 @@ import Firebase
 class emailLoginWindow: gui_init{
 
     //----------Data Variables----------//
-    private var dataModel: DataModel!;
+    var dataModel: DataModel!;
     
     //----------Window/Navigation Variables----------//
     var tabBarController_farm_ios: UITabBarController?
@@ -172,11 +172,18 @@ class emailLoginWindow: gui_init{
                     print("You have successfully logged in")
 
                     //----------Setup TabBarController----------//
-                    self.dataModel.readDatabase();
-                    //Util.setupMainWindow(nav: self.navigationController!, data: self.dataModel!)
-                    
-                    self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
-                    self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
+                    self.dataModel.readDatabase{ sucess in
+                        if sucess{
+                            print("values updated");
+                            self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
+                            self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
+                            
+                        }
+                        else{
+                            print("values not updated");
+                        }
+                    }
+                    print("Values should be updated");
                 }
                 else{
                     print("error")

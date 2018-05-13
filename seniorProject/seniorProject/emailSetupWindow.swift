@@ -146,8 +146,26 @@ class emailSetupWindow: gui_init{
         print("Login");
 
         //----------Setup TabBarController----------//
-        self.dataModel.readDatabase();
+        self.dataModel.readDatabase{ sucess in
+            if sucess{
+                print("values updated");
+                
+                print("Grow LIght: ", self.dataModel.get_grow_light())
+                /*
+                controlWindow2.growLightValue = (data.get_grow_light()==1 ? true : false);
+                controlWindow2.waterPumpValue = (data.get_water_pump()==1 ? true : false);
+                controlWindow2.drainPumpValue = (data.get_drain_pump()==1 ? true : false);
+                controlWindow2.waterPurifierValue = (data.get_water_purifier()==1 ? true : false);
+                */
+                
+            }
+            else{
+                print("values not updated");
+            }
+        }
+        print("values should be updated");
         self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
+        //aself.tabBarController_farm_ios?.selectedViewController.
         self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
         
     }

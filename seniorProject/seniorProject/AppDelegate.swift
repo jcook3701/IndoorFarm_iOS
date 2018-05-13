@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         print(credential)
         //Auth.auth().signInAndRetrieveData(with: credential, completion: AuthResultCallback = nil);
 
-        
+
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -70,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
             //----------Setup TabBarController----------//
             //----------Goes to controlWindow_1---------//
-            self.dataModel.readDatabase();
             self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navController_farm_ios!, data: self.dataModel);
             self.navController_farm_ios!.pushViewController(self.tabBarController_farm_ios!, animated: true);
 
@@ -111,7 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         self.window?.backgroundColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0);
         self.navController_farm_ios = UINavigationController();
         let mainView = mainMenuWindow(); //ViewController = Name of your controller
-        //nav1?.viewControllers = [mainView]
         self.navController_farm_ios?.pushViewController(mainView, animated: true);
         self.window!.rootViewController = self.navController_farm_ios;
         self.window?.makeKeyAndVisible();

@@ -24,6 +24,9 @@ import GoogleSignIn
 
 class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     
+    //----------Data Variables----------//
+    var dataModel: DataModel!;
+    
     //Vars
     var signInButton0: GIDSignInButton!
     var signInButton1: FBSDKLoginButton!
@@ -64,7 +67,6 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
                 }
             }
         }
-        // ...
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
@@ -90,7 +92,9 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         
         //var count = 0;
         //----------Firebase----------//
-        //----------Google Login----------//
+        //----------Data Variables----------//
+        
+        //----------Google Sign In----------//
         GIDSignIn.sharedInstance().uiDelegate = self;
         //GIDSignIn.sharedInstance().signIn();      Silent Signin if user has already signed in with googled. 
         self.signInButton0 = GIDSignInButton();
@@ -101,7 +105,7 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         view.addSubview(signInButton0)
         let testFrame = self.signInButton0.frame;
 
-        //----------Facebook Login----------//
+        //----------Facebook Sign In----------//
         self.signInButton1 = FBSDKLoginButton();
         self.signInButton1.delegate = self
         //self.signInButton1.frame.size = CGSize(width: self.screenWidth*0.6, height: screenHeight/13);
@@ -110,7 +114,7 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         signInButton1.center = CGPoint(x: screenWidth/2, y: screenHeight*0.8);
         view.addSubview(self.signInButton1);
         
-        //----------Mail Login----------//
+        //----------Mail Sign In----------//
         self.signInButton2 = UIButton(frame: testFrame);
         self.signInButton2.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.signInButton2.tag = 0;
@@ -122,8 +126,6 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         self.signInButton2.setImage(#imageLiteral(resourceName: "ic_email.png"), for: UIControlState.normal)
         self.signInButton2.center = CGPoint(x: screenWidth/2, y: screenHeight*0.70);
         view.addSubview(self.signInButton2);
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -134,15 +136,13 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
     @objc func buttonAction(sender: UIButton!){
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
-        if(tag == 0){//Login
-            print("Login");
+        if(tag == 0){//Mail Sign In Button
             //----------Mail Login Screen Init----------//
             let controller = emailLoginWindow()
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
             controller.title = "Email Login"
             navigationController?.pushViewController(controller, animated: true)
-
             //present(controller, animated: true, completion: nil);
         }
         if(tag == 1){

@@ -25,24 +25,14 @@ class Util {
         let controlWindow2 = controlWindow_2();
         let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ];
         
-        /*
-        print("Grow Light: ", data.get_grow_light());
-        print("Water Pump: ", data.get_water_pump());
-        print("Drain Pump: ", data.get_drain_pump());
-        print("Water Purifier: ", data.get_water_purifier());
-        
-        print("Grow Light: ", (data.get_grow_light()==1 ? true : false));
-        print("Water Pump: ", (data.get_water_pump()==1 ? true : false));
-        print("Drain Pump: ", (data.get_drain_pump()==1 ? true : false));
-        print("Water Purifier: ", (data.get_water_purifier()==1 ? true : false));
-        */
-        
         //----------Data Passed to Set Intial Values of Switches for GrowLight, WaterPump, Drain Pump, & WaterPurifier----------//
         controlWindow2.growLightValue = (data.get_grow_light()==1 ? true : false);
         controlWindow2.waterPumpValue = (data.get_water_pump()==1 ? true : false);
         controlWindow2.drainPumpValue = (data.get_drain_pump()==1 ? true : false);
         controlWindow2.waterPurifierValue = (data.get_water_purifier()==1 ? true : false);
         
+        
+ 
         //----------TabBarItems----------//
         controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0);
         controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1);
@@ -57,5 +47,11 @@ class Util {
         
         return tabBarController;
     }
+    
+    /*
+    class func updateTabBarController2(data: DataModel) -> UITabBarController{
+        return false;
+    }
+    */
 }
 
