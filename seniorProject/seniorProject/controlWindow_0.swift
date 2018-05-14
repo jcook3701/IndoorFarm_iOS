@@ -17,6 +17,9 @@ import FirebaseDatabase
 
 class controlWindow_0: gui_init{
     
+    //----------Data Variables----------//
+    var dataModel: DataModel!;
+    
     //----------GUI Variables----------//
     var titleView: UITextField!;
     var logoutButton: UIButton!;

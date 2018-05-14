@@ -19,6 +19,9 @@ import FirebaseDatabase
 
 class controlWindow_1: gui_init{
     
+    //----------Data Variables----------//
+    var dataModel: DataModel!;
+    
     //----------GUI Variables----------//
     var titleView: UITextField!;
     var planNameView: UITextField!;

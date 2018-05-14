@@ -25,14 +25,11 @@ class Util {
         let controlWindow2 = controlWindow_2();
         let viewControllerList = [ controlWindow0, controlWindow1, controlWindow2 ];
         
-        //----------Data Passed to Set Intial Values of Switches for GrowLight, WaterPump, Drain Pump, & WaterPurifier----------//
-        controlWindow2.growLightValue = (data.get_grow_light()==1 ? true : false);
-        controlWindow2.waterPumpValue = (data.get_water_pump()==1 ? true : false);
-        controlWindow2.drainPumpValue = (data.get_drain_pump()==1 ? true : false);
-        controlWindow2.waterPurifierValue = (data.get_water_purifier()==1 ? true : false);
+        //-----Pass FirebaseDB info to all three windows----//
+        controlWindow0.dataModel = data;
+        controlWindow1.dataModel = data;
+        controlWindow2.dataModel = data;
         
-        
- 
         //----------TabBarItems----------//
         controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0);
         controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1);
@@ -47,11 +44,5 @@ class Util {
         
         return tabBarController;
     }
-    
-    /*
-    class func updateTabBarController2(data: DataModel) -> UITabBarController{
-        return false;
-    }
-    */
 }
 

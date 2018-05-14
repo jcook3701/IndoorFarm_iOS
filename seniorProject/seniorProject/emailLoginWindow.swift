@@ -177,7 +177,6 @@ class emailLoginWindow: gui_init{
                             print("values updated");
                             self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
                             self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
-                            
                         }
                         else{
                             print("values not updated");

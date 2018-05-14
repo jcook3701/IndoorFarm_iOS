@@ -90,7 +90,6 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         self.BlockWidth = screenWidth/NumberOfBlocksWide;          //Block Width: (Screen Width/
         self.BlockHeight = (screenHeight-20)/NumberOfBlocksTall;    //Block Height
         
-        //var count = 0;
         //----------Firebase----------//
         //----------Data Variables----------//
         
@@ -99,18 +98,18 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         //GIDSignIn.sharedInstance().signIn();      Silent Signin if user has already signed in with googled. 
         self.signInButton0 = GIDSignInButton();
         //self.signInButton0.frame.size = CGSize(width: self.screenWidth*0.6, height: screenHeight/22);
-        self.signInButton0.style = GIDSignInButtonStyle.wide    // => 312x48
+        self.signInButton0.style = GIDSignInButtonStyle.wide;    // => 312x48
         self.signInButton0.center = CGPoint(x: screenWidth/2, y: screenHeight*0.9);
         self.signInButton0.tag = 1;
-        view.addSubview(signInButton0)
+        view.addSubview(signInButton0);
         let testFrame = self.signInButton0.frame;
 
         //----------Facebook Sign In----------//
         self.signInButton1 = FBSDKLoginButton();
-        self.signInButton1.delegate = self
+        self.signInButton1.delegate = self;
         //self.signInButton1.frame.size = CGSize(width: self.screenWidth*0.6, height: screenHeight/13);
-        self.signInButton1.frame = testFrame
-        self.signInButton1.titleLabel?.font = self.signInButton1.titleLabel?.font.withSize(screenHeight/45)
+        self.signInButton1.frame = testFrame;
+        self.signInButton1.titleLabel?.font = self.signInButton1.titleLabel?.font.withSize(screenHeight/45);
         signInButton1.center = CGPoint(x: screenWidth/2, y: screenHeight*0.8);
         view.addSubview(self.signInButton1);
         
@@ -119,11 +118,11 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         self.signInButton2.addTarget(self.view.inputViewController, action: #selector(buttonAction), for: .touchUpInside);
         self.signInButton2.tag = 0;
         self.signInButton2.setTitle(String("  Sign in with email"), for: .normal);
-        self.signInButton2.titleLabel?.font = self.signInButton2.titleLabel?.font.withSize(screenHeight/40)
+        self.signInButton2.titleLabel?.font = self.signInButton2.titleLabel?.font.withSize(screenHeight/40);
         self.signInButton2.layer.borderColor = UIColor.black.cgColor;
         self.signInButton2.backgroundColor = UIColor(displayP3Red: 0.9, green: 0.2, blue: 0.2, alpha: 1.0);
         //self.signInButton2.setImage(btnImage , for: UIControlState.normal);#imageLiteral(resourceName: "map")
-        self.signInButton2.setImage(#imageLiteral(resourceName: "ic_email.png"), for: UIControlState.normal)
+        self.signInButton2.setImage(#imageLiteral(resourceName: "ic_email.png"), for: UIControlState.normal);
         self.signInButton2.center = CGPoint(x: screenWidth/2, y: screenHeight*0.70);
         view.addSubview(self.signInButton2);
     }
@@ -138,11 +137,11 @@ class mainMenuWindow: gui_init, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
         sender.showsTouchWhenHighlighted = true;
         if(tag == 0){//Mail Sign In Button
             //----------Mail Login Screen Init----------//
-            let controller = emailLoginWindow()
+            let controller = emailLoginWindow();
             controller.view.backgroundColor = UIColor.white;
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
-            controller.title = "Email Login"
-            navigationController?.pushViewController(controller, animated: true)
+            controller.title = "Email Login";
+            navigationController?.pushViewController(controller, animated: true);
             //present(controller, animated: true, completion: nil);
         }
         if(tag == 1){

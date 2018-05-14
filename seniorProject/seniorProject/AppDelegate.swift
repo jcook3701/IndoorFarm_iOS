@@ -67,11 +67,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
          
             // User is signed in
             print("User is signed in")
-
             //----------Setup TabBarController----------//
-            //----------Goes to controlWindow_1---------//
-            self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navController_farm_ios!, data: self.dataModel);
-            self.navController_farm_ios!.pushViewController(self.tabBarController_farm_ios!, animated: true);
+            self.dataModel.readDatabase{ sucess in
+                if sucess{
+                    print("values updated");
+                    self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navController_farm_ios!, data: self.dataModel);
+                    self.navController_farm_ios?.pushViewController(self.tabBarController_farm_ios!, animated: true);
+                }
+                else{
+                    print("values not updated");
+                }
+            }
+           //self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navController_farm_ios!, data: self.dataModel);
+           //self.navController_farm_ios!.pushViewController(self.tabBarController_farm_ios!, animated: true);
 
         }
     }

@@ -20,33 +20,19 @@ class DataModel{
     //-----Firebase Variables-----//
     //-----All Values-----//
     private var firebase_values: NSDictionary?;
-    //-----Always Read-----//
-    private var temperature: Double = 0;
-    private var water_level: Int = 0;
-    //-----Read and Set-----//
-    private var grow_light: Int = 0;
-    private var water_pump: Int = 0;
-    private var drain_pump: Int = 0;
-    private var water_purifier: Int = 0;
-    private var servo_mode: Int = 0;
-    private var servo_reset: Int = 0;
-    //-----Automation-----//
-    private var grow_light_maxsleep: Int = 0;
-    private var grow_light_maxtemp: Int = 0;
-    private var grow_light_maxtimer: Int = 0; 
-    //-----End Firebase Variables-----//
 
+    //private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
+    //public var plantNames = Array<String>();                     //For drop down box    }
     
-    private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
-    public var plantNames = Array<String>();                     //For drop down box    }
-    
-    private var timer_drop_vals: (value:String, position:Int)?          //Drop down value to be put into minutes
+    //private var timer_drop_vals: (value:String, position:Int)?          //Drop down value to be put into minutes
 
     init(){
         self.conditionRef = Database.database().reference();
     }
     
     //Setter for variableValues and plantNames
+    
+    /*
     func setOperand(variableName: String){
         self.variableValues[variableName] = 0;
         self.plantNames.append(variableName);
@@ -68,150 +54,137 @@ class DataModel{
         self.plantNames = plantNames.filter{$0 != operand };
         self.variableValues.removeValue(forKey: operand);
     }
+    */
     
     //-----Getters and Setters for Firebase Variables-----//
     //-----temperature-----//
     func get_temperature() -> Double{
-        return self.temperature;
+        let temperature = self.firebase_values?["Temperature"] as? Double;
+        return temperature!;
     }
-    func set_temperature(number: Double)
-    {
-        self.temperature = number;
-    }
+    
     //-----water_level-----//
     func get_water_level() -> Int{
-        return self.water_level;
-    }
-    func set_water_level(number: Int)
-    {
-        self.water_level = number;
+        let water_level = self.firebase_values?["Water_Level"] as? Int;
+        return water_level!;
     }
 
     //-----grow_light-----//
     func get_grow_light() -> Int{
-        return self.grow_light;
+        let grow_light_value = self.firebase_values?["Grow_Light"] as? Int;
+        return grow_light_value!;
     }
-    func set_grow_light(number: Int)
-    {
-        self.grow_light = number;
+    
+    func set_grow_light_on(){
+        self.conditionRef.child("Grow_Light").setValue(1);
+    }
+    
+    func set_grow_light_off(){
+        self.conditionRef.child("Grow_Light").setValue(0);
     }
 
     //-----water_pump-----//
     func get_water_pump() -> Int{
-        return self.water_pump;
+        let water_pump = self.firebase_values?["Water_Pump"] as? Int;
+        return water_pump!;
     }
-    func set_water_pump(number: Int)
-    {
-        self.water_pump = number;
+    
+    func set_water_pump_on(){
+        self.conditionRef.child("Water_Pump").setValue(1);
+    }
+    
+    func set_water_pump_off(){
+        self.conditionRef.child("Water_Pump").setValue(0);
     }
 
     //-----drain_pump-----//
     func get_drain_pump() -> Int{
-        return self.drain_pump;
+        let drain_pump = self.firebase_values?["Drain_Pump"] as? Int;
+        return drain_pump!;
     }
-    func set_drain_pump(number: Int)
-    {
-        self.drain_pump = number;
+    
+    func set_drain_pump_on(){
+        self.conditionRef.child("Drain_Pump").setValue(1);
+    }
+    
+    func set_drain_pump_off(){
+        self.conditionRef.child("Drain_Pump").setValue(0);
     }
     
     //-----water_purifier-----//
     func get_water_purifier() -> Int{
-        return self.water_purifier;
+        let water_purifier = self.firebase_values?["Water_Purifier"] as? Int;
+        return water_purifier!;
     }
-    func set_water_purifier(number: Int)
-    {
-        self.water_purifier = number;
+    
+    func set_water_purifier_on(){
+        self.conditionRef.child("Water_Purifier").setValue(1);
+    }
+    
+    func set_water_purifier_off(){
+        self.conditionRef.child("Water_Purifier").setValue(0);
     }
 
     //-----servo_mode-----//
     func get_servo_mode() -> Int{
-        return self.servo_mode;
+        let servo_mode = self.firebase_values?["Servo_Mode"] as? Int;
+        return servo_mode!;
     }
-    func set_servo_mode(number: Int)
-    {
-        self.servo_mode = number;
+    
+    //number can be 0 or 1 for corisponding mode 0 or mode 1
+    func set_servo_mode(number: Int){
+        if(number == 0){
+            self.conditionRef.child("Servo_Mode").setValue(0);
+        }
+        if(number == 1){
+            self.conditionRef.child("Servo_Mode").setValue(1);
+        }
     }
 
     //-----servo_reset-----//
-    func get_servo_reset() -> Int{
-        return self.servo_reset;
-    }
-    func set_servo_reset(number: Int)
+    func set_servo_reset()
     {
-        self.servo_reset = number;
+        self.conditionRef.child("Servo_Reset").setValue(1);
     }
 
     //-----grow_light_maxsleep-----//
     func get_grow_light_maxsleep() -> Int{
-        return self.grow_light_maxsleep;
+        let grow_light_maxsleep = self.firebase_values?["Grow_Light_Maxsleep"] as? Int;
+        return grow_light_maxsleep!;
     }
-    func set_grow_light_maxsleep(number: Int)
-    {
-        self.grow_light_maxsleep = number;
+    
+    func set_grow_light_maxsleep(minutes_cycle: Int){
+        self.conditionRef.child("Grow_Light_Maxsleep").setValue(minutes_cycle);
     }
 
     //-----grow_light_maxtemp-----//
     func get_grow_light_maxtemp() -> Int{
-        return self.grow_light_maxtemp;
-    }
-    func set_grow_light_maxtemp(number: Int)
-    {
-        self.grow_light_maxtemp = number;
+        let grow_light_maxtemp = self.firebase_values?["Grow_Light_Maxtemp"] as? Int;
+        return grow_light_maxtemp!;
     }
 
     //-----grow_light_maxtimer-----//
     func get_grow_light_maxtimer() -> Int{
-        return self.grow_light_maxtimer;
+        let grow_light_maxtimer = self.firebase_values?["Grow_Light_Maxtimer"] as? Int;
+        return grow_light_maxtimer!;
     }
-    func set_grow_light_maxtimer(number: Int)
-    {
-        self.grow_light_maxtimer = number;
+    
+    func set_grow_light_maxtimer(minutes_cycle: Int){
+        self.conditionRef.child("Grow_Light_Maxtimer").setValue(minutes_cycle);
     }
     
     //-----Collect Values from Firebase-----//
+    //-----This must be run before any of the Get commands-----//
     func readDatabase(completion: @escaping (Bool) -> ()) {
         
         conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            //-----Collect Values from FirebaseDB-----//
             let value = snapshot.value as? NSDictionary;
             self.firebase_values = value;
-            
-            let grow_light_value = value?["Grow_Light"] as? Int;
-            let water_pump_value = value?["Water_Pump"] as? Int;
-            let drain_pump_value = value?["Drain_Pump"] as? Int;
-            let water_purifier_value = value?["Water_Purifier"] as? Int;
-            
-            self.grow_light = grow_light_value!;
-            self.water_pump = water_pump_value!;
-            self.drain_pump = drain_pump_value!;
-            self.water_purifier = water_purifier_value!;
-            
-            print("Grow Light: ", self.grow_light);
-            print("Water Pump: ", self.water_pump);
-            print("Drain Pump: ", self.drain_pump);
-            print("Water Purifier: ", self.water_purifier);
             completion(true);
             
         }, withCancel : { error in
             print("with Cancel error");
         })
-        
-        /*
-        conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in
-            let grow_light_value = snapshot.value as! Int;
-            self.grow_light = grow_light_value;
-        });
-        conditionRef.child("Water_Pump").observe(.childAdded, with: {snapshot in
-            let water_pump_value = snapshot.value as! Int;
-            self.water_pump = water_pump_value;
-        });
-        conditionRef.child("Drain_Pump").observe(.childAdded, with: {snapshot in
-            let drain_pump_value = snapshot.value as! Int;
-            self.drain_pump = drain_pump_value;
-        });
-        conditionRef.child("Water_Purifier").observe(.childAdded, with: {snapshot in
-            let water_purifier_value = snapshot.value as! Int;
-            self.water_purifier = water_purifier_value;
-        });
-        */
     }
 }
