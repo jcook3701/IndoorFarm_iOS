@@ -43,23 +43,11 @@ class controlWindow_2: gui_init{
     //----------Row 8----------//
     var logoutButton: UIButton!;
     
-    //----------Firebase Variables----------//
-    var conditionRef: DatabaseReference!
-    
     //----------readDatabase Variables----------//
     var growLightValue: Bool!;
     var waterPumpValue: Bool!;
     var drainPumpValue: Bool!;
     var waterPurifierValue: Bool!;
-    
-    //----------Handle Data Read From FirebaseDB----------//
-    
-    func readDatabase(){
-        conditionRef.child("Grow_Light").observe(.childAdded, with: {snapshot in
-            let snapShotValue = snapshot.value as! Bool;
-            self.waterPumpValue = snapShotValue;
-        });
-    }
     
     //Draws a line
     func addLine(fromPoint start: CGPoint, toPoint end:CGPoint) {
@@ -154,8 +142,6 @@ class controlWindow_2: gui_init{
         self.lightSwitch.setOn(self.growLightValue, animated: true);
         //self.lightSwitch.setOn(false, animated: true);
         print(self.growLightValue);
-
-
         self.lightSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
         //------------Water Pump-----------//
@@ -200,7 +186,6 @@ class controlWindow_2: gui_init{
         print(self.waterPurifierValue);
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
-        
         //----------------Moving Platform----------------//
         //----------platformTitleView----------//
         self.platformTitleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
@@ -281,65 +266,59 @@ class controlWindow_2: gui_init{
             print("Light Value Changed");
             //conditionRef.child("users").child((user.uid)).child("Grow_Light").setValue("1");
             if(sender.isOn == true){
-                conditionRef.child("Grow_Light").setValue(1);
+                self.dataModel.set_grow_light_on();
             }
             else{
-                conditionRef.child("Grow_Light").setValue(0);
+                self.dataModel.set_grow_light_off();
             }
         }
         if(tag == 1){//Water Pump Switch
             print("Water Pump Value Changed");
             if(sender.isOn == true){
-                conditionRef.child("Water_Pump").setValue(1);
+                self.dataModel.set_water_pump_on()
             }
             else{
-                conditionRef.child("Water_Pump").setValue(0);
+                self.dataModel.set_water_pump_off()
             }
         }
         if(tag == 2){//Drain Pump Switch
             print("Drain Pump Value Changed");
             if(sender.isOn == true){
-                conditionRef.child("Drain_Pump").setValue(1);
+                self.dataModel.set_drain_pump_on();
             }
             else{
-                conditionRef.child("Drain_Pump").setValue(0);
+                self.dataModel.set_drain_pump_off();
             }
         }
         if(tag == 3){//Water_Purifier
             print("Water Purifier Value Changed");
             if(sender.isOn == true){
-                conditionRef.child("Water_Purifier").setValue(1);
+                self.dataModel.set_water_purifier_on();
             }
             else{
-                conditionRef.child("Water_Purifier").setValue(0);
+                self.dataModel.set_water_purifier_off();
             }
         }
     }
     
     @objc func segmentedControlAction(sender: UISegmentedControl) {
-        print("Change color handler is called.")
-        print("Changing Color to ")
         switch sender.selectedSegmentIndex {
-        case 0:
-            self.view.backgroundColor = UIColor.green;
-            print("Green")
         case 1:
-            self.view.backgroundColor = UIColor.blue;
-            print("Blue")
+            print("Mode 1")
+            self.dataModel.set_servo_mode(number: 1);
         default:
-            self.view.backgroundColor = UIColor.purple;
-            print("Purple")
+            print("Mode 0");
+            self.dataModel.set_servo_mode(number: 0);
         }
     }
     
     @objc func buttonAction(sender: UIButton!){
         let tag = sender.tag;
         sender.showsTouchWhenHighlighted = true;
-        if(tag == 0){//resetPlatformButton
-            
-
+        if(tag == 0){//reset Platform Button
+            self.dataModel.set_servo_reset();
         }
-        if(tag == 1){//LogoutButton
+        if(tag == 1){//Logout Button
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
@@ -349,9 +328,6 @@ class controlWindow_2: gui_init{
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
-        }
-        if(tag == 2){
-            
         }
     }
     

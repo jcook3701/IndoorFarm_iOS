@@ -26,10 +26,6 @@ class controlWindow_1: gui_init{
     var titleView: UITextField!;
     var planNameView: UITextField!;
     var plantTraitView: UITextField!;
-    //var growLightRunTimeView: UITextField!;
-    //var growLightSleepTimeView: UITextField!;
-    //var waterPumpRunTimeView: UITextField!;
-    //var waterPumpSleepTimeView: UITextField!;
     var createSettingsButton: UIButton!;
     var deleteSettingsButton: UIButton!;
     var startButtton: UIButton!;
@@ -107,10 +103,6 @@ class controlWindow_1: gui_init{
         self.titleView = UITextField();
         self.planNameView = UITextField();
         self.plantTraitView = UITextField();
-        //self.growLightRunTimeView = UITextField();
-        //self.growLightSleepTimeView = UITextField();
-        //self.waterPumpRunTimeView = UITextField();
-        //self.waterPumpSleepTimeView = UITextField();
         self.createSettingsButton = UIButton();
         self.deleteSettingsButton = UIButton();
         self.startButtton = UIButton();
@@ -196,33 +188,6 @@ class controlWindow_1: gui_init{
         }
         //self.drop.options = self.variableNames;
         
-        
-        //----------growLightRunTimeView----------//
-        
-        /*
-        self.growLightRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.43,height:self.BlockHeight));
-        self.growLightRunTimeView.placeholder = " Grow Light Run Time: "
-        self.growLightRunTimeView.layer.borderWidth = 1
-        self.growLightRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);   
-        
-        //----------growLightSleepTimeView----------//
-        self.growLightSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.5 ,width:self.screenWidth*0.43,height:BlockHeight));
-        self.growLightSleepTimeView.placeholder = " Grow Light Sleep Time: "
-        self.growLightSleepTimeView.layer.borderWidth = 1
-        self.growLightSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        
-        //----------waterPumpRunTimeView----------//
-        self.waterPumpRunTimeView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.6 ,width:self.screenWidth*0.43,height:self.BlockHeight));
-        self.waterPumpRunTimeView.placeholder = " Grow Light Run Time: "
-        self.waterPumpRunTimeView.layer.borderWidth = 1
-        self.waterPumpRunTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        
-        //----------waterPumpSleepTimeView----------//
-        self.waterPumpSleepTimeView = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.48) ,y: screenHeight*0.6 ,width:self.screenWidth*0.43,height:BlockHeight));
-        self.waterPumpSleepTimeView.placeholder = " Grow Light Sleep Time: "
-        self.waterPumpSleepTimeView.layer.borderWidth = 1
-        self.waterPumpSleepTimeView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
-        */
         //----------createSettingsButton----------//
         self.createSettingsButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
             screenHeight*0.7 ,width:self.screenWidth*0.43,height:BlockHeight))
@@ -269,16 +234,6 @@ class controlWindow_1: gui_init{
         self.view.addSubview(self.growLightMaxSleepDropdown);
         self.view.addSubview(self.growLightMaxTimerDropdown);
         self.view.addSubview(self.plantDropdown);
-
-
-        
-        //----------growLightMaxTimerDropdown----------//
-        
-        //self.view.addSubview(self.growLightRunTimeView);
-        //self.view.addSubview(self.growLightSleepTimeView);
-        //self.view.addSubview(self.waterPumpRunTimeView);
-        //self.view.addSubview(self.waterPumpSleepTimeView);
-
         
         //----------Possibly Helpful CMDS----------//
         //self.usernameView.textAlignment = NSTextAlignment.left

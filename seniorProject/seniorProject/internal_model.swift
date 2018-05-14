@@ -12,51 +12,36 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-
 class DataModel{
     //Class variables
     var conditionRef: DatabaseReference!
 
-    //-----Firebase Variables-----//
-    //-----All Values-----//
+    //-----Firebase values wraped into NSDictionary-----//
     private var firebase_values: NSDictionary?;
-
-    //private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
-    //public var plantNames = Array<String>();                     //For drop down box    }
-    
-    //private var timer_drop_vals: (value:String, position:Int)?          //Drop down value to be put into minutes
 
     init(){
         self.conditionRef = Database.database().reference();
     }
     
-    //Setter for variableValues and plantNames
-    
-    /*
-    func setOperand(variableName: String){
-        self.variableValues[variableName] = 0;
-        self.plantNames.append(variableName);
+    //-----Collect Values from Firebase-----//
+    //-----This must be run before any of the Get commands-----//
+    func readDatabase(completion: @escaping (Bool) -> ()) {
+        
+        conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            //-----Collect Values from FirebaseDB-----//
+            let value = snapshot.value as? NSDictionary;
+            self.firebase_values = value;
+            completion(true);
+            
+        }, withCancel : { error in
+            print("with Cancel error");
+        })
     }
-    
-    func setVariableValuesValue(key: String, value: Double){
-        self.variableValues[key] = value;
-    }
-    
-    func getPlantNamesValue(position: Int) -> String?{//plantNames getter for value at position
-        return self.plantNames[position];                  //Intended for use with loop
-    }
-    
-    func getVariableValuesValue(key: String) -> Double?{//variablesValue getter for value at position
-        return self.variableValues[key];                     //Intended for use with loop
-    }
-    
-    func rmOperand(_ operand: String){//removes the
-        self.plantNames = plantNames.filter{$0 != operand };
-        self.variableValues.removeValue(forKey: operand);
-    }
-    */
     
     //-----Getters and Setters for Firebase Variables-----//
+    //-----Getters collect values from (firebase_values:NSDictionary?). To update getters run readDatabase((completion: @escaping (Bool) -> ()) then run getCMDs-----//
+    //-----Setters set values directly on FirebaseDB-----//
+
     //-----temperature-----//
     func get_temperature() -> Double{
         let temperature = self.firebase_values?["Temperature"] as? Double;
@@ -142,8 +127,7 @@ class DataModel{
     }
 
     //-----servo_reset-----//
-    func set_servo_reset()
-    {
+    func set_servo_reset(){
         self.conditionRef.child("Servo_Reset").setValue(1);
     }
 
@@ -172,19 +156,40 @@ class DataModel{
     func set_grow_light_maxtimer(minutes_cycle: Int){
         self.conditionRef.child("Grow_Light_Maxtimer").setValue(minutes_cycle);
     }
+}
+
+class plantSettingsContainer{
     
-    //-----Collect Values from Firebase-----//
-    //-----This must be run before any of the Get commands-----//
-    func readDatabase(completion: @escaping (Bool) -> ()) {
-        
-        conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            //-----Collect Values from FirebaseDB-----//
-            let value = snapshot.value as? NSDictionary;
-            self.firebase_values = value;
-            completion(true);
-            
-        }, withCancel : { error in
-            print("with Cancel error");
-        })
-    }
+    //private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
+    //public var plantNames = Array<String>();                     //For drop down box    }
+    
+    //private var timer_drop_vals: (value:String, position:Int)?          //Drop down value to be put into minutes
+    
+    
+    //Setter for variableValues and plantNames
+    
+    /*
+     func setOperand(variableName: String){
+     self.variableValues[variableName] = 0;
+     self.plantNames.append(variableName);
+     }
+     
+     func setVariableValuesValue(key: String, value: Double){
+     self.variableValues[key] = value;
+     }
+     
+     func getPlantNamesValue(position: Int) -> String?{//plantNames getter for value at position
+     return self.plantNames[position];                  //Intended for use with loop
+     }
+     
+     func getVariableValuesValue(key: String) -> Double?{//variablesValue getter for value at position
+     return self.variableValues[key];                     //Intended for use with loop
+     }
+     
+     func rmOperand(_ operand: String){//removes the
+     self.plantNames = plantNames.filter{$0 != operand };
+     self.variableValues.removeValue(forKey: operand);
+     }
+     */
+    
 }
