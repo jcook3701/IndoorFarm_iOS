@@ -77,6 +77,7 @@ class controlWindow_0: gui_init{
                 }
             }
         });
+        
     }
     
     //Draws a line
@@ -182,7 +183,7 @@ class controlWindow_0: gui_init{
         self.view.addSubview(self.water_val);
         
         
-        //----------Lights Info----------//
+        //----------Grow Lights----------//
         self.lights = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
             screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
         self.lights.text = " Lights: "
@@ -196,6 +197,54 @@ class controlWindow_0: gui_init{
         self.light_val.isUserInteractionEnabled = false;
         self.light_val.textAlignment = .center;
         self.view.addSubview(self.light_val);
+        
+        
+        //----------Water Pump----------//
+        self.pump = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.5 ,width:screenWidth*0.4,height:BlockHeight));
+        self.pump.text = " Water Pump: "
+        self.pump.isUserInteractionEnabled = false;
+        self.pump.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.pump);
+        
+        self.pump_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.5 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.pump_val.layer.borderWidth = 0
+        self.pump_val.isUserInteractionEnabled = false;
+        self.pump_val.textAlignment = .center;
+        self.view.addSubview(self.pump_val);
+        
+        //----------Water Drain----------//
+        self.drain = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.6 ,width:screenWidth*0.4,height:BlockHeight));
+        self.drain.text = " Water Drain: "
+        self.drain.isUserInteractionEnabled = false;
+        self.drain.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.drain);
+        
+        self.drain_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.6 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.drain_val.layer.borderWidth = 0
+        self.drain_val.isUserInteractionEnabled = false;
+        self.drain_val.textAlignment = .center;
+        self.view.addSubview(self.drain_val);
+        
+        
+        //----------Water Purifier----------//
+        self.purifier = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.7 ,width:screenWidth*0.4,height:BlockHeight));
+        self.purifier.text = " Water Purifier: "
+        self.purifier.isUserInteractionEnabled = false;
+        self.purifier.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.purifier);
+        
+        self.purifier_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.7 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.purifier_val.layer.borderWidth = 0
+        self.purifier_val.isUserInteractionEnabled = false;
+        self.purifier_val.textAlignment = .center;
+        self.view.addSubview(self.purifier_val);
+
         
       
         //----------Possibly Helpful CMDS----------//
