@@ -28,6 +28,14 @@ class controlWindow_0: gui_init{
     var waterLevel: UITextField!;
     var temp_val: UITextField!;
     var water_val: UITextField!;
+    var lights: UITextField!;
+    var light_val: UITextField!;
+    var pump: UITextField!;
+    var pump_val: UITextField!;
+    var drain: UITextField!;
+    var drain_val: UITextField!;
+    var purifier: UITextField!;
+    var purifier_val: UITextField!;
     var readTimer : Timer!;
 
     //----------Firebase Variables----------//
@@ -51,6 +59,21 @@ class controlWindow_0: gui_init{
                 }
                 else{
                     self.water_val.text =  "Resevoir Empty";
+                }
+            }
+        });
+        
+        
+        conditionRef.child("Grow_Light").observeSingleEvent(of: .value  , with: { (snapshot) in
+            if let myValue = snapshot.value as? Int{
+                //print(myValue);
+                if(myValue == 1){
+                    self.light_val.text =  "On";
+                    self.conditionRef.child("Grow_Light").setValue(1);
+                    //self.conditionRef.child("Water_Pump").setValue(<#T##value: Any?##Any?#>, andPriority: <#T##Any?#>)
+                }
+                else{
+                    self.light_val.text =  "Off";
                 }
             }
         });
@@ -129,14 +152,14 @@ class controlWindow_0: gui_init{
         
         //----------Temperature Value----------//
         
-        self.temperature = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.temperature = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y: self.screenHeight*0.2 ,width:self.screenWidth*0.4,height:self.BlockHeight));
 
         self.temperature.text = " Temperature: "
         self.temperature.isUserInteractionEnabled = false;
         self.temperature.layer.borderWidth = 0
         self.view.addSubview(self.temperature);
 
-        self.temp_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.temp_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.2 ,width:self.screenWidth*0.4,height:self.BlockHeight));
         self.temp_val.layer.borderWidth = 0
         self.temp_val.isUserInteractionEnabled = false;
         self.temp_val.textAlignment = .center;
@@ -145,18 +168,34 @@ class controlWindow_0: gui_init{
         
         //----------Water Level----------//
         self.waterLevel = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
-            screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+            screenHeight*0.3 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterLevel.text = " Water level: "
         self.waterLevel.isUserInteractionEnabled = false;
         self.waterLevel.layer.borderWidth = 0
         //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
         self.view.addSubview(self.waterLevel);
 
-        self.water_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.water_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.3 ,width:self.screenWidth*0.4,height:self.BlockHeight));
         self.water_val.layer.borderWidth = 0
         self.water_val.isUserInteractionEnabled = false;
         self.water_val.textAlignment = .center;
         self.view.addSubview(self.water_val);
+        
+        
+        //----------Lights Info----------//
+        self.lights = UITextField(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
+            screenHeight*0.4 ,width:screenWidth*0.4,height:BlockHeight));
+        self.lights.text = " Lights: "
+        self.lights.isUserInteractionEnabled = false;
+        self.lights.layer.borderWidth = 0
+        //self.passwordView.addTarget(self, action: #selector(textFieldDidBeginEditing), for: UIControlEvents.touchDown);
+        self.view.addSubview(self.lights);
+        
+        self.light_val = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.4) ,y: self.screenHeight*0.4 ,width:self.screenWidth*0.4,height:self.BlockHeight));
+        self.light_val.layer.borderWidth = 0
+        self.light_val.isUserInteractionEnabled = false;
+        self.light_val.textAlignment = .center;
+        self.view.addSubview(self.light_val);
         
       
         //----------Possibly Helpful CMDS----------//
