@@ -20,7 +20,8 @@ public class UIDropDown: UIControl {
     fileprivate var arrow: Arrow!
     fileprivate var table: UITableView!
     
-    public fileprivate(set) var selectedIndex: Int?
+    //fileprivate(set)
+    public var selectedIndex: Int?
     public var options = [String]()
     public var hideOptionsWhenSelect = false
     public var placeholder: String! {

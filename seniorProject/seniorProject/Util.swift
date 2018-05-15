@@ -14,6 +14,9 @@ class Util {
     //-----------------------Initializes tabBarWindow_farm_ios-----------------------//
     class func setupTabBarController(nav: UINavigationController, data: DataModel) -> UITabBarController{
        
+        //var plantSettings: plantSettingsContainer!;
+        
+        
         //----------Collect Values to intialize windows----------//
         //This should be done before this to insure that the collection of values from Firebase has time before the screen's are initilized.
         

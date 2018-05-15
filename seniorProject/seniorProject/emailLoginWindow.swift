@@ -174,14 +174,23 @@ class emailLoginWindow: gui_init{
                     //----------Setup TabBarController----------//
                     self.dataModel.readDatabase{ sucess in
                         if sucess{
-                            print("values updated");
-                            self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
-                            self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
+                            print("readDatabase: values updated");
+                            self.dataModel.get_all_plant_settings_firebaseDB{ sucess in
+                                if sucess{
+                                    print("get_all_plant_settings_firebaseDB: values updated");
+                                    self.tabBarController_farm_ios = Util.setupTabBarController(nav: self.navigationController!, data: self.dataModel);
+                                    self.navigationController?.pushViewController(self.tabBarController_farm_ios!, animated: true);
+                                }
+                                else{
+                                    print("get_all_plant_settings_firebaseDB: values not updated");
+                                }
+                            }
                         }
                         else{
-                            print("values not updated");
+                            print("readDatabase: values not updated");
                         }
                     }
+                    
                     print("Values should be updated");
                 }
                 else{

@@ -242,7 +242,7 @@ class controlWindow_0: gui_init{
         //----------currentSettingsView----------//
         self.currentSettingsView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
             self.screenHeight*0.34 ,width:self.screenWidth*0.9,height:self.BlockHeight));
-        self.currentSettingsView.text = " Farm Current Settings ";
+        self.currentSettingsView.text = " Current Farm Settings ";
         self.currentSettingsView.textAlignment = .center;
         self.currentSettingsView.isUserInteractionEnabled = false;
         self.currentSettingsView.layer.borderWidth = 0;

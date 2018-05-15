@@ -18,9 +18,47 @@ class DataModel{
 
     //-----Firebase values wraped into NSDictionary-----//
     private var firebase_values: NSDictionary?;
-
+    var plant_names: NSDictionary?;
+    
     init(){
         self.conditionRef = Database.database().reference();
+    }
+    
+    func get_all_plant_settings_firebaseDB(completion: @escaping (Bool) -> ()){
+        
+        guard let user = Auth.auth().currentUser else{
+            print("error no user logged in")
+            return
+        };
+        conditionRef.child("users").child((user.uid)).observeSingleEvent(of: .value, with: { (snapshot) in
+            //-----Collect Values from FirebaseDB-----//
+            let value = snapshot.value as? NSDictionary;
+            self.plant_names = value;
+            //print(self.plant_names!)
+            completion(true);
+            
+        }, withCancel : { error in
+            print("with Cancel error");
+        })
+        
+    }
+    
+    func write_plant_settings_firebaseDB(plant: String, grow_light_maxtimer: Int, grow_light_maxsleep: Int, grow_light_maxtemp: Int, plant_trait: String){
+        print("write_plant_settings_firebaseDB: function call");
+        guard let user = Auth.auth().currentUser else{
+            print("error no user logged in")
+            return
+        };
+        conditionRef.child("users").child((user.uid)).child(plant).setValue(["Grow_Light_Maxtimer": grow_light_maxtimer, "Grow_Light_Maxsleep": grow_light_maxsleep, "Grow_Light_Maxtemp": grow_light_maxtemp, "Plant_Trait": plant_trait]);
+    }
+    
+    func delete_plant_settings_firebaseDB(plant: String){
+        print("delete_plant_settings_firebaseDB: function call");
+        guard let user = Auth.auth().currentUser else{
+            print("error no user logged in")
+            return
+        };
+        conditionRef.child("users").child((user.uid)).child(plant).removeValue();
     }
     
     //-----Collect Values from Firebase-----//
@@ -38,10 +76,39 @@ class DataModel{
         })
     }
     
-    //-----Getters and Setters for Firebase Variables-----//
+    //-----Getters and Setters for Firebase Variables: Plant Settings-----//
+    func get_plant_names_Dictionary() -> NSDictionary! {
+        return self.plant_names!;
+    }
+    
+    //-----Inputs are from -----//
+    func get_plant_setting_grow_light_maxtimer(plant_type: String) -> Int{
+        let grow_light_maxtimer = self.plant_names!.value(forKeyPath: plant_type+".Grow_Light_Maxtimer");
+        return grow_light_maxtimer! as! Int;
+    }
+    
+    func get_plant_setting_grow_light_maxsleep(plant_type: String) ->  Int{
+        let grow_light_maxsleep = self.plant_names!.value(forKeyPath: plant_type+".Grow_Light_Maxsleep");
+        return grow_light_maxsleep! as! Int;
+    }
+    
+    func get_plant_setting_grow_light_maxtemp(plant_type: String) -> Int{
+        let grow_light_maxtemp = self.plant_names!.value(forKeyPath: plant_type+".Grow_Light_Maxtemp");
+        return grow_light_maxtemp! as! Int;
+    }
+    
+    func get_plant_setting_plant_trait(plant_type: String) -> String{
+        let grow_light_maxtimer = self.plant_names!.value(forKeyPath: plant_type+".Plant_Trait");
+        return grow_light_maxtimer! as! String;
+    }
+    
+    //-----Getters and Setters for Firebase Variables: Indoor Farm-----//
     //-----Getters collect values from (firebase_values:NSDictionary?). To update getters run readDatabase((completion: @escaping (Bool) -> ()) then run getCMDs-----//
     //-----Setters set values directly on FirebaseDB-----//
-
+    func get_firebase_values_Dictionary() -> NSDictionary! {
+        return self.firebase_values!;
+    }
+    
     //-----temperature-----//
     func get_temperature() -> Double{
         let temperature = self.firebase_values?["Temperature"] as? Double;
@@ -159,6 +226,17 @@ class DataModel{
 }
 
 class plantSettingsContainer{
+    //Class variables
+    var conditionRef: DatabaseReference!
+    
+    //-----Firebase User values wraped into NSDictionary-----//
+    
+    
+    init(){
+        self.conditionRef = Database.database().reference();
+    }
+    
+
     
     //private var variableValues: Dictionary<String, Double> = [:];   //Holds Value and corresponding value
     //public var plantNames = Array<String>();                     //For drop down box    }
