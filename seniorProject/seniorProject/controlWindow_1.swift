@@ -381,7 +381,40 @@ class controlWindow_1: gui_init{
         }
         if(tag == 2){//Start Button
             print("Start Growing Button Pushed");
-            //self.dataModel.write_plant_settings_firebaseDB(); 
+            
+            //-----Testing to make sure that there are not pre-set-title-values-----//
+            let plant_title = self.plantNameView.text!;//String
+            let grow_light_maxtimer_title = self.growLightMaxTimerDropdown.placeholder!;
+            let grow_light_maxsleep_title = self.growLightMaxSleepDropdown.placeholder!;
+            let grow_light_maxtemp_title = self.growLightMaxTempDropdown.placeholder!;
+            
+            //-----Handles deletion of selected value from firebase-----//
+            if(plant_title != "Plant Select" &&
+                grow_light_maxtimer_title != "Grow Light: Power On Cycle" &&
+                grow_light_maxsleep_title != "Grow Light: Power Off Cycle" &&
+                grow_light_maxtemp_title != "Grow Light: Max Temperature"){
+                
+                let current_grow_light_maxtimer_index = self.growLightMaxTimerDropdown.selectedIndex!;//Int
+                let current_grow_light_maxsleep_index = self.growLightMaxSleepDropdown.selectedIndex!;//Int
+                let current_grow_light_maxtemp_index = self.growLightMaxTempDropdown.selectedIndex!;//Int
+                
+                let current_grow_light_maxtimer = self.growLightMaxTimerDropdown.selectedIndex!*30;//Int
+                let current_grow_light_maxsleep = self.growLightMaxSleepDropdown.selectedIndex!*30;//Int
+                let current_grow_light_maxtemp = ((self.growLightMaxTempDropdown.selectedIndex!+1)*20);//Int
+                
+                print(plant_title);
+                print(current_grow_light_maxtimer_index," ",grow_light_maxtimer_title," ", current_grow_light_maxtimer);
+                print(current_grow_light_maxsleep_index," ",grow_light_maxsleep_title," ", current_grow_light_maxsleep);
+                print(current_grow_light_maxtemp_index, " ",grow_light_maxtemp_title," ", current_grow_light_maxtemp);
+                
+                
+                self.dataModel.write_automated_settings_to_indoor_farm(grow_light_maxtimer: current_grow_light_maxtimer, grow_light_maxsleep: current_grow_light_maxsleep, grow_light_maxtemp: current_grow_light_maxtemp);
+                
+                print("Starting Automated Settings"); 
+
+            }
+            
+            
         }
     }
     

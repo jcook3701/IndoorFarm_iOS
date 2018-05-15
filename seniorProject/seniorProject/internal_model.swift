@@ -63,6 +63,12 @@ class DataModel{
     
     //-----Collect Values from Firebase-----//
     //-----This must be run before any of the Get commands-----//
+    func write_automated_settings_to_indoor_farm(grow_light_maxtimer: Int, grow_light_maxsleep: Int, grow_light_maxtemp: Int){
+        self.conditionRef.child("Grow_Light_Maxtimer").setValue(grow_light_maxtimer);
+        self.conditionRef.child("Grow_Light_Maxsleep").setValue(grow_light_maxsleep);
+        self.conditionRef.child("Grow_Light_Maxtemp").setValue(grow_light_maxtemp);
+    }
+    
     func readDatabase(completion: @escaping (Bool) -> ()) {
         
         conditionRef.observeSingleEvent(of: .value, with: { (snapshot) in
