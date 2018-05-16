@@ -205,8 +205,8 @@ class DataModel{
     }
 
     //-----grow_light_maxsleep-----//
-    func get_grow_light_maxsleep() -> Int{
-        let grow_light_maxsleep = self.firebase_values?["Grow_Light_Maxsleep"] as? Int;
+    func get_grow_light_maxsleep() -> Double{
+        let grow_light_maxsleep = self.firebase_values?["Grow_Light_Maxsleep"] as? Double;
         return grow_light_maxsleep!;
     }
     
@@ -215,14 +215,14 @@ class DataModel{
     }
 
     //-----grow_light_maxtemp-----//
-    func get_grow_light_maxtemp() -> Int{
-        let grow_light_maxtemp = self.firebase_values?["Grow_Light_Maxtemp"] as? Int;
+    func get_grow_light_maxtemp() -> Double{
+        let grow_light_maxtemp = self.firebase_values?["Grow_Light_Maxtemp"] as? Double;
         return grow_light_maxtemp!;
     }
 
     //-----grow_light_maxtimer-----//
-    func get_grow_light_maxtimer() -> Int{
-        let grow_light_maxtimer = self.firebase_values?["Grow_Light_Maxtimer"] as? Int;
+    func get_grow_light_maxtimer() -> Double{
+        let grow_light_maxtimer = self.firebase_values?["Grow_Light_Maxtimer"] as? Double;
         return grow_light_maxtimer!;
     }
     

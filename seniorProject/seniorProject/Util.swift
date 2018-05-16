@@ -34,9 +34,22 @@ class Util {
         controlWindow2.dataModel = data;
         
         //----------TabBarItems----------//
-        controlWindow0.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0);
-        controlWindow1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1);
-        controlWindow2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2);
+        let image0 = UIImage(named: "info");
+        let image1 = UIImage(named: "auto");
+        let image2 = UIImage(named: "manual");
+        
+        //let tab_image0 = UIImage(cgImage: image0 as! CGImage, scale: 0.5, orientation: .up);
+        //let tab_image1 = UIImage(cgImage: image1 as! CGImage, scale: 0.5, orientation: .up);
+        //let tab_image2 = UIImage(cgImage: image2 as! CGImage, scale: 0.5, orientation: .up);
+
+        //UIImage(cgImage: CGImage(UIImage(named: "info")), scale: 0.4, orientation: .none)
+        let tabBarItem0 = UITabBarItem(title: "Info", image: image0, tag: 0);
+        let tabBarItem1 = UITabBarItem(title: "Automation", image: image1, tag: 1);
+        let tabBarItem2 = UITabBarItem(title: "Manual", image: image2, tag: 2);
+        
+        controlWindow0.tabBarItem = tabBarItem0; //UITabBarItem(tabBarSystemItem: .downloads, tag: 0);
+        controlWindow1.tabBarItem = tabBarItem1; //UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1);
+        controlWindow2.tabBarItem = tabBarItem2; //UITabBarItem(tabBarSystemItem: .favorites, tag: 2);
         
         tabBarController.viewControllers = viewControllerList;
         tabBarController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;

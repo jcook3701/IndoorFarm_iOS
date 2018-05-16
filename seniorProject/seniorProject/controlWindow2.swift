@@ -48,6 +48,7 @@ class controlWindow_2: gui_init{
     var waterPumpValue: Bool!;
     var drainPumpValue: Bool!;
     var waterPurifierValue: Bool!;
+    var platformModeValue: Int!;
     
     //Draws a line
     func addLine(fromPoint start: CGPoint, toPoint end:CGPoint) {
@@ -62,12 +63,52 @@ class controlWindow_2: gui_init{
         self.view.layer.addSublayer(line)
     }
     
+    func update_manaul_settings_page_values(){
+        //----------Init Firebase Variables----------//
+        //----------Handle Data Read From FirebaseDB----------//
+        self.growLightValue = (self.dataModel.get_grow_light()==1 ? true : false);//Bool
+        self.waterPumpValue = (self.dataModel.get_water_pump()==1 ? true : false);//Bool
+        self.drainPumpValue = (self.dataModel.get_drain_pump()==1 ? true : false);//Bool
+        self.waterPurifierValue = (self.dataModel.get_water_purifier()==1 ? true : false);//Bool
+        self.platformModeValue = self.dataModel.get_servo_mode();//Int
+    }
+    
+    func write_to_ui(){
+        self.lightSwitch.setOn(self.growLightValue, animated: true);//Bool
+        self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);//Bool
+        self.drainPumpSwitch.setOn(self.drainPumpValue, animated: true);//Bool
+        self.waterPurifierSwitch.setOn(self.waterPurifierValue, animated: true);//Bool
+        self.resetPlatformSegmentControl.selectedSegmentIndex = self.platformModeValue;//Int
+    }
+    
+    func update_ui_from_local_dataModel(){
+        self.update_manaul_settings_page_values()
+        self.write_to_ui();
+    }
+    
+    func update_ui_from_firebaseDB(){
+        self.dataModel.readDatabase{ sucess in
+            if sucess{
+                self.update_manaul_settings_page_values()
+                self.write_to_ui();
+            }
+            else{
+                print("values not updated");
+            }
+        }
+    }
+    
     override init() {
         super.init();
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("Window 2: update from firebaseDB");
+        self.update_ui_from_firebaseDB();
     }
     
     override func viewDidLoad() {
@@ -110,13 +151,6 @@ class controlWindow_2: gui_init{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        //----------Init Firebase Variables----------//
-        //----------Handle Data Read From FirebaseDB----------//
-        self.growLightValue = (self.dataModel.get_grow_light()==1 ? true : false);
-        self.waterPumpValue = (self.dataModel.get_water_pump()==1 ? true : false);
-        self.drainPumpValue = (self.dataModel.get_drain_pump()==1 ? true : false);
-        self.waterPurifierValue = (self.dataModel.get_water_purifier()==1 ? true : false);
-        
         //----------Title----------//
         self.titleView = UITextField(frame:CGRect(x: self.screenWidth-(self.screenWidth*0.95) ,y:
             self.screenHeight*0.115 ,width:self.screenWidth*0.9,height:self.BlockHeight));
@@ -139,8 +173,6 @@ class controlWindow_2: gui_init{
         //----------lightSwitch----------//
         self.lightSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.19 ,width:screenWidth*0.4,height:BlockHeight));
         self.lightSwitch.tag = 0;
-        self.lightSwitch.setOn(self.growLightValue, animated: true);
-        //self.lightSwitch.setOn(false, animated: true);
         print(self.growLightValue);
         self.lightSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
@@ -154,7 +186,6 @@ class controlWindow_2: gui_init{
         //----------waterPumpSwitch----------//
         self.waterPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.27 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPumpSwitch.tag = 1;
-        self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);
         print(self.waterPumpValue);
         self.waterPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
         
@@ -168,7 +199,6 @@ class controlWindow_2: gui_init{
         //----------drainPumpSwitch----------//
         self.drainPumpSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.35 ,width:screenWidth*0.4,height:BlockHeight));
         self.drainPumpSwitch.tag = 2;
-        self.drainPumpSwitch.setOn(self.drainPumpValue, animated: true);
         print(self.drainPumpValue);
         self.drainPumpSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
@@ -182,7 +212,6 @@ class controlWindow_2: gui_init{
         //----------waterPurifierSwitch----------//
         self.waterPurifierSwitch = UISwitch(frame: CGRect(x: self.screenWidth-(self.screenWidth*0.35) ,y: screenHeight*0.43 ,width:screenWidth*0.4,height:BlockHeight));
         self.waterPurifierSwitch.tag = 3;
-        self.waterPurifierSwitch.setOn(self.waterPurifierValue, animated: true);
         print(self.waterPurifierValue);
         self.waterPurifierSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged);
 
@@ -207,9 +236,8 @@ class controlWindow_2: gui_init{
         self.resetPlatformSegmentControl.layer.borderWidth = 1;
         self.resetPlatformSegmentControl.layer.cornerRadius = 5;
         self.resetPlatformSegmentControl.layer.borderColor = UIColor.black.cgColor;
-        self.resetPlatformSegmentControl.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
-        self.resetPlatformSegmentControl.tintColor = UIColor.white;
-        self.resetPlatformSegmentControl.selectedSegmentIndex = 0;
+        self.resetPlatformSegmentControl.backgroundColor = UIColor.white//UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        self.resetPlatformSegmentControl.tintColor = UIColor.blue;
         
         //----------resetPlatformButton----------//
         self.resetPlatformButton = UIButton(frame:CGRect(x: screenWidth-(screenWidth*0.95) ,y:
@@ -230,6 +258,28 @@ class controlWindow_2: gui_init{
         self.logoutButton.layer.cornerRadius = 5;
         self.logoutButton.layer.borderColor = UIColor.black.cgColor;
         self.logoutButton.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        
+        
+        //----------Init Firebase Variables----------//
+        //----------Handle Data Read From FirebaseDB----------//
+        self.update_ui_from_local_dataModel();
+
+        /*
+        self.growLightValue = (self.dataModel.get_grow_light()==1 ? true : false);//Bool
+        self.waterPumpValue = (self.dataModel.get_water_pump()==1 ? true : false);//Bool
+        self.drainPumpValue = (self.dataModel.get_drain_pump()==1 ? true : false);//Bool
+        self.waterPurifierValue = (self.dataModel.get_water_purifier()==1 ? true : false);//Bool
+        self.platformModeValue = self.dataModel.get_servo_mode();//Int
+        
+        //Intialize all objects after getting their values//
+        self.lightSwitch.setOn(self.growLightValue, animated: true);
+        self.waterPumpSwitch.setOn(self.waterPumpValue, animated: true);
+        self.drainPumpSwitch.setOn(self.drainPumpValue, animated: true);
+        self.waterPurifierSwitch.setOn(self.waterPurifierValue, animated: true);
+        self.resetPlatformSegmentControl.selectedSegmentIndex = self.platformModeValue;
+        //----------End Init Firebase Variables Code Block----------//
+        */
+        
         
         //----------Initialize GUI objects by adding them to the subview----------//
         //----------Row 0----------//
